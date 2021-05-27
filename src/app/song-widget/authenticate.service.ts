@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { SessionStorageService} from 'angular-web-storage';
 
 const CLIENT_ID = '5afa66ec3eda4ecbb2e3d82139819866';
-const uri = 'https://mhisle22.github.io/SongOfTheDay/';
+const uri = 'https://mhisle22.github.io/spotifysongoftheday/';
 
 const httpHeader = {
   headers: new HttpHeaders({

@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
 
     this.pkce_challenge_from_verifier(this.sessionStorage.get('verifier')).then((challenge) => {
        this.document.location.href = 'https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID +
-        '&redirect_uri=https:%2F%2Fmhisle22.github.io%2FSongOfTheDay%2F&response_type=code&scope=user-top-read&code_challenge_method=S256&state=123&code_challenge='
+        '&redirect_uri=https:%2F%2Fmhisle22.github.io%2Fspotifysongoftheday%2F&response_type=code&scope=user-top-read&code_challenge_method=S256&state=123&code_challenge='
         + challenge;
     });
   }
