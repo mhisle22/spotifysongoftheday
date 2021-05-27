@@ -2,14 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { LocalStorageService } from 'angular-web-storage';
+import { SpotifySongResponse } from "./interfaces/spotify-song-response.interface";
 
-
-export interface SpotifySongResponse {
-  spotify_link: string;
-  song: string;
-  artist: string;
-  image_link: string;
-}
 
 @Injectable()
 export class SpotifyRequestService {

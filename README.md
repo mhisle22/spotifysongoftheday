@@ -40,8 +40,8 @@ All commits are analyzed for security flaws by GitHub Advanced Security.
  npm start
  ```
 
-3. Build the project for Github pages
+3. Deploy the project for Github pages via angular-cli-ghpages
  ```bash
- ng build --prod --baseHref="https://mhisle22.github.io/SongOfTheDay/"
+ ng deploy --baseHref="https://mhisle22.github.io/spotifysongoftheday/"
  ```
  

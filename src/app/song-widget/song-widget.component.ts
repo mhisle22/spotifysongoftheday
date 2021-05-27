@@ -1,16 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {HttpClient } from '@angular/common/http';
-import {switchMap, tap} from 'rxjs/operators';
-import {SessionStorageService} from 'angular-web-storage';
-import {SpotifyRequestService} from './spotify-request.service';
-import {AuthenticateService} from './authenticate.service';
-
-export interface SpotifySongResponse {
-  spotify_link: string;
-  song: string;
-  artist: string;
-  image_link: string;
-}
+import { Component, Input, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { switchMap, tap } from 'rxjs/operators';
+import { SessionStorageService } from 'angular-web-storage';
+import { SpotifyRequestService } from './spotify-request.service';
+import { AuthenticateService } from './authenticate.service';
+import { SpotifySongResponse } from "./interfaces/spotify-song-response.interface";
 
 @Component({
   selector: 'ng-song-widget',
@@ -46,11 +40,9 @@ export class SongWidgetComponent implements OnInit {
               private authService: AuthenticateService) { }
 
   ngOnInit(): void {
-    console.log('Auth token: ' + this.authToken);
 
     // check if refresh token available
     if (!!this.sessionStorage.get('refresh_token')) {
-      console.log(this.sessionStorage.get('refresh_token'));
       this.retrieveSongRefresh()
     }
     else {
