@@ -1,0 +1,165 @@
+@import url(https://fonts.googleapis.com/css?family=Varela+Round);
+
+// Colors
+$color-one: #fff;
+$color-two: #383A3F;
+$color-three: #2fa305;
+$color-four: #41e505;
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  background: $color-two;
+  font-family: "Varela Round", sans-serif;
+}
+
+.title {
+  margin-top: 3vh;
+  color: white;
+  font-size: 3.5vw;
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-top: 5vh;
+  }
+  text-align: center;
+
+  //animation code below
+  position: relative;
+  opacity: 0;
+  -webkit-animation: slideUp 1s forwards;
+  -moz-animation: slideUp 1s forwards;
+  animation: slideUp 1s forwards;
+  -webkit-animation-delay: .25s;
+  -moz-animation-delay: .25s;
+  animation-delay: .25s;
+
+  @-webkit-keyframes slideUp {
+    0% {
+      transform: translateX(25px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes slideUp {
+    0% {
+      transform: translateX(25px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slideUp {
+    0% {
+      transform: translateY(25px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+.track-cover {
+  border-radius: 2px;
+  width: 350px;
+  height: 350px;
+  @media (max-width: 768px) {
+    width: calc(100%);
+    height: calc(100%);
+  }
+  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;
+}
+
+.song-title {
+  font-size: 2.5vw;
+  font-weight: 700;
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+
+  .long {
+    font-size: 2vw;
+  }
+}
+
+
+.card {
+  // background: $color-one;
+  // box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  border-radius: 5px;
+  margin: 3vh auto;
+  width: 390px;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  @media (max-width: 768px) {
+    width: calc(100% - 40px);
+  }
+  .features {
+    ul {
+      color: black;
+      padding: 0;
+      margin: 20px 0 30px 0;
+      list-style-type: none;
+      li {
+        margin: 10px 0;
+      }
+    }
+  }
+  .btn {
+    display: block;
+    background: $color-four;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: rgba(0,0,0,0.9);
+    transition: all 200ms ease-in-out;
+    text-decoration: none;
+    &:hover {
+      background: $color-three;
+    }
+  }
+
+  //animation code below
+  position: relative;
+  opacity: 0;
+  -webkit-animation: pulse-in 1s forwards;
+  -moz-animation: pulse-in 1s forwards;
+  animation: pulse-in 1s forwards;
+  -webkit-animation-delay: 1.25s;
+  -moz-animation-delay: 1.25s;
+  animation-delay: 1.25s;
+
+  @-webkit-keyframes pulse-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes pulse-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes pulse-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}

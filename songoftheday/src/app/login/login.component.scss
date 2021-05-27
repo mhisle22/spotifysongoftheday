@@ -1,0 +1,138 @@
+.login-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  background-image: url("../../assets/backgrounds-music.jpg");
+  background-size: cover;
+}
+
+.title {
+  color: #f8f9fa;
+  font-size: 3rem;
+}
+
+.logo {
+  height: 50%;
+  width: 50%;
+}
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+}
+
+.login-button {
+  margin-top: 4vh;
+  margin-bottom: 3vh;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.error-text {
+  text-align: center;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  color: white;
+}
+
+.error-button {
+  width: 50%;
+  display: flex;
+  margin-top: 4vh;
+  margin-bottom: 3vh;
+}
+
+#login-text {
+  text-align: center;
+  //animation code below
+  position: relative;
+  opacity: 0;
+  -webkit-animation: slideUp 1s forwards;
+  -moz-animation: slideUp 1s forwards;
+  animation: slideUp 1s forwards;
+  -webkit-animation-delay: .25s;
+  -moz-animation-delay: .25s;
+  animation-delay: .25s;
+
+  @-webkit-keyframes slideUp {
+    0% {
+      transform: translateX(25px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes slideUp {
+    0% {
+      transform: translateX(25px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slideUp {
+    0% {
+      transform: translateY(25px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+#login {
+  text-align: center;
+  //animation code below
+  position: relative;
+  opacity: 0;
+  -webkit-animation: pulse-in 1s forwards;
+  -moz-animation: pulse-in 1s forwards;
+  animation: pulse-in 1s forwards;
+  -webkit-animation-delay: 1.25s;
+  -moz-animation-delay: 1.25s;
+  animation-delay: 1.25s;
+
+  @-webkit-keyframes pulse-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes pulse-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes pulse-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+.privacy {
+  position: fixed;
+  right: 2%;
+  bottom: 1%;
+}

@@ -1,0 +1,18 @@
+<div class="title">Your song of the day is...</div>
+<div class="card">
+  <a href="{{spotify_link}}">
+    <img class="track-cover" src="{{image_link}}" alt="loading...">
+  </a>
+  <div class="features">
+    <ul>
+      <div *ngIf="long_song; else regular">
+        <li class="song-title long">{{song}}</li>
+      </div>
+      <ng-template #regular>
+        <li class="song-title">{{song}}</li>
+      </ng-template>
+      <li class="song-artist">{{artist}}</li>
+    </ul>
+  </div>
+  <a href="{{spotify_link}}" class="btn">Check it out!</a>
+</div>
