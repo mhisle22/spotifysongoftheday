@@ -1,4 +1,4 @@
-#Privacy Policy
+# Privacy Policy
 
 **_tl:dr;_** this app physically can't store your data so I don't ever see it.
 
