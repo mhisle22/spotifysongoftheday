@@ -7,6 +7,9 @@ import { AuthModule } from "./login/auth.module";
 import { SpotifyRequestService } from "./song-widget/spotify-request.service";
 import { AuthenticateService } from "./song-widget/authenticate.service";
 import { SongWidgetModule } from "./song-widget/song-widget.module";
+import { HttpClientModule } from "@angular/common/http";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -14,6 +17,9 @@ import { SongWidgetModule } from "./song-widget/song-widget.module";
   ],
   imports: [
     BrowserModule,
+    NgbModule,
+    CommonModule,
+    HttpClientModule,
     AuthModule,
     SongWidgetModule,
     AppRoutingModule
