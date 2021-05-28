@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { SessionStorageService } from 'angular-web-storage';
+import { environment } from '../../environments/environment';
 
 
 const CLIENT_ID = '5afa66ec3eda4ecbb2e3d82139819866';
@@ -12,7 +13,7 @@ const CLIENT_ID = '5afa66ec3eda4ecbb2e3d82139819866';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  version: string | null = '1.0.0'; // make this modular later
+  version: string = environment.version;
   error: string | undefined;
   accessToken: string;
 
