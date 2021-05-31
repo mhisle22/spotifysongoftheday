@@ -86,7 +86,10 @@ body {
   }
 
   .long {
-    font-size: 2vw;
+    font-size: 1.5vw;
+    @media (max-width: 768px) {
+      font-size: 1.0rem;
+    }
   }
 }
 
