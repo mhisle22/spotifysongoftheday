@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, catchError } from 'rxjs/operators';
 import { SessionStorageService } from 'angular-web-storage';
 import { SpotifyRequestService } from './spotify-request.service';
 import { AuthenticateService } from './authenticate.service';
@@ -22,6 +22,8 @@ export class SongWidgetComponent implements OnInit {
   song: string;
   long_song: boolean; // calculate whether to bump down font size
   artist: string;
+
+  errorMessage: string;
 
 
   private _authToken: string;
@@ -65,7 +67,8 @@ export class SongWidgetComponent implements OnInit {
         this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists)),
       tap(value => {
         this.setSongData(value);
-      })
+      }),
+      catchError(err => this.errorMessage = err)
     ).subscribe();
   }
 
@@ -83,7 +86,8 @@ export class SongWidgetComponent implements OnInit {
         this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists)),
       tap(value => {
         this.setSongData(value);
-      })
+      }),
+      catchError(err => this.errorMessage = err)
     ).subscribe();
   }
 
