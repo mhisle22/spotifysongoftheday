@@ -7,7 +7,7 @@
     <div class="features">
       <ul>
         <div *ngIf="long_song; else regular">
-          <li class="song-title long">{{song}}</li>
+          <li class="long-song">{{song}}</li>
         </div>
         <ng-template #regular>
           <li class="song-title">{{song}}</li>

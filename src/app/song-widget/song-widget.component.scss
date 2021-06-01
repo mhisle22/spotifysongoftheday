@@ -28,9 +28,9 @@ body {
   //animation code below
   position: relative;
   opacity: 0;
-  -webkit-animation: slideUp 1s forwards;
-  -moz-animation: slideUp 1s forwards;
-  animation: slideUp 1s forwards;
+  -webkit-animation: slideUp 1.5s forwards;
+  -moz-animation: slideUp 1.5s forwards;
+  animation: slideUp 1.5s forwards;
   -webkit-animation-delay: .25s;
   -moz-animation-delay: .25s;
   animation-delay: .25s;
@@ -85,11 +85,13 @@ body {
     font-size: 1.5rem;
   }
 
-  .long {
-    font-size: 1.5vw;
-    @media (max-width: 768px) {
-      font-size: 1.0rem;
-    }
+}
+
+.long-song {
+  font-size: 1.5vw;
+  font-weight: 700;
+  @media (max-width: 768px) {
+    font-size: 1.0rem;
   }
 }
 
@@ -137,9 +139,9 @@ body {
   -webkit-animation: pulse-in 1s forwards;
   -moz-animation: pulse-in 1s forwards;
   animation: pulse-in 1s forwards;
-  -webkit-animation-delay: 1.25s;
-  -moz-animation-delay: 1.25s;
-  animation-delay: 1.25s;
+  -webkit-animation-delay: 1.75s;
+  -moz-animation-delay: 1.75s;
+  animation-delay: 1.75s;
 
   @-webkit-keyframes pulse-in {
     0% {
