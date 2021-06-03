@@ -1,4 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
+import { trigger, style, animate, transition, state } from "@angular/animations";
 import { HttpClient } from '@angular/common/http';
 import { switchMap, tap, catchError } from 'rxjs/operators';
 import { SessionStorageService } from 'angular-web-storage';
@@ -11,7 +12,26 @@ import { environment } from '../../environments/environment';
 @Component({
   selector: 'ng-song-widget',
   templateUrl: './song-widget.component.html',
-  styleUrls: ['./song-widget.component.scss']
+  styleUrls: ['./song-widget.component.scss'],
+  animations: [
+    trigger('nextSong', [
+
+      state('in', style({
+        opacity: 1
+      })),
+      state('out', style({
+        opacity: 0,
+        transform: 'translate(0, -30px)'
+      })),
+
+      transition('in => out', [
+        animate('1s'),
+      ]),
+      transition('out => in', [
+        animate('1s'),
+      ])
+    ])
+  ]
 })
 export class SongWidgetComponent implements OnInit {
 
@@ -26,6 +46,7 @@ export class SongWidgetComponent implements OnInit {
   artist: string;
 
   errorMessage: string;
+  isIn: boolean = true;
 
 
   private _authToken: string;
@@ -125,5 +146,11 @@ export class SongWidgetComponent implements OnInit {
     this.sessionStorage.set('refresh_token', null); // uncommon, but delete token if they deny after previously accepting
     this.document.location.href = 'https://mhisle22.github.io/SongOfTheDay/';
   }
+
+  nextSong() {
+    this.isIn = false;
+    // blah blah blah increment counter wahhh INSERT CODE HERE
+  }
+
 
 }
