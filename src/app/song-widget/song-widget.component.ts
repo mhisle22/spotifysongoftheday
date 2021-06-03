@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { switchMap, tap, catchError } from 'rxjs/operators';
 import { SessionStorageService } from 'angular-web-storage';
 import { SpotifyRequestService } from './spotify-request.service';
 import { AuthenticateService } from './authenticate.service';
 import { SpotifySongResponse } from "./interfaces/spotify-song-response.interface";
+import { DOCUMENT } from "@angular/common";
 
 @Component({
   selector: 'ng-song-widget',
@@ -36,7 +37,8 @@ export class SongWidgetComponent implements OnInit {
   }
 
 
-  constructor(private sessionStorage: SessionStorageService,
+  constructor(@Inject(DOCUMENT) private document: Document,
+              private sessionStorage: SessionStorageService,
               private httpClient: HttpClient,
               private spotifyService: SpotifyRequestService,
               private authService: AuthenticateService) { }
@@ -114,6 +116,11 @@ export class SongWidgetComponent implements OnInit {
     this.song = values[0].song;
     this.long_song = values[0].song.length > 20;
     this.artist = values[0].artist;
+  }
+
+  back() {
+    this.sessionStorage.set('refresh_token', null); // uncommon, but delete token if they deny after previously accepting
+    this.document.location.href = 'https://mhisle22.github.io/SongOfTheDay/';
   }
 
 }

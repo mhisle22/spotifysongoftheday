@@ -75,7 +75,6 @@ export class LoginComponent implements OnInit {
 
   back() {
     this.sessionStorage.set('refresh_token', null); // uncommon, but delete token if they deny after previously accepting
-    console.log(this.sessionStorage.get('refresh_token'));
     this.document.location.href = 'https://mhisle22.github.io/SongOfTheDay/';
   }
 

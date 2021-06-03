@@ -20,5 +20,9 @@
 </div>
 <ng-template #error>
   <h3 class="error-message">{{errorMessage}}</h3>
+  <h3 class="error-message">An error occurred.</h3>
   <h3 class="error-message">Please check if you have a valid Spotify Premium account.</h3>
+  <button class="btn btn-primary mx-auto error-button" type="submit" (click)="back()">
+    <span>Go Back</span>
+  </button>
 </ng-template>
