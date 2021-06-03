@@ -4,8 +4,9 @@ import { switchMap, tap, catchError } from 'rxjs/operators';
 import { SessionStorageService } from 'angular-web-storage';
 import { SpotifyRequestService } from './spotify-request.service';
 import { AuthenticateService } from './authenticate.service';
-import { SpotifySongResponse } from "./interfaces/spotify-song-response.interface";
-import { DOCUMENT } from "@angular/common";
+import { SpotifySongResponse } from './interfaces/spotify-song-response.interface';
+import { DOCUMENT } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'ng-song-widget',
@@ -45,8 +46,10 @@ export class SongWidgetComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // check if refresh token available
-    if (!!this.sessionStorage.get('refresh_token')) {
+    if (environment.version === 'qa') {
+      this.setSongData(environment.songs);
+    }
+    else if (!!this.sessionStorage.get('refresh_token')) { // check if refresh token available
       this.retrieveSongRefresh()
     }
     else {

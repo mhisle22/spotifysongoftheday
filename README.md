@@ -40,7 +40,12 @@ All commits are analyzed for security flaws by GitHub Advanced Security.
  npm start
  ```
 
-3. Deploy the project for Github pages via angular-cli-ghpages
+3. Load in sample data for UI testing on the main page (skips any login pages):
+ ```bash
+ npm run qa
+ ```
+
+4. Deploy the project for Github pages via angular-cli-ghpages
  ```bash
  ng deploy --baseHref="https://mhisle22.github.io/spotifysongoftheday/"
  ```
