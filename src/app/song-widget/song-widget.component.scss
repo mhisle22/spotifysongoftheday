@@ -190,11 +190,11 @@ body {
   animation-delay: 2.5s;
 }
 
-.fa-chevron-down {
+.fa-chevron-up {
   color: ghostwhite;
   font-size: 2rem;
   cursor: pointer;
-  margin-top: 1vh;
+  margin-top: 6vh;
   display: inline-block;
 
   position: relative;
@@ -235,4 +235,21 @@ body {
       transform: translate(0, 0);
     }
   }
+}
+
+.fa-chevron-down {
+  color: ghostwhite;
+  font-size: 2rem;
+  cursor: pointer;
+  margin-top: 1vh;
+  display: inline-block;
+
+  position: relative;
+  -webkit-animation: pulse 2s infinite;
+  -moz-animation: pulse 2s infinite;
+  animation: pulse 2s infinite;
+}
+
+.up-arrow-invisible {
+  visibility: hidden;
 }
