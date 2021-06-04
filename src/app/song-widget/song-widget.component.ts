@@ -73,7 +73,6 @@ export class SongWidgetComponent implements OnInit {
               private authService: AuthenticateService) { }
 
   ngOnInit(): void {
-
     if (environment.version === 'qa') {
       this.setSongData(environment.songs, 0);
     }
@@ -83,7 +82,6 @@ export class SongWidgetComponent implements OnInit {
     else {
       this.retrieveSong();
     }
-
   }
 
   private retrieveSong() {
@@ -129,13 +127,13 @@ export class SongWidgetComponent implements OnInit {
     this.sessionStorage.set('refresh_token', data.refresh);
   }
 
-  // once I make this modular, take in a number for this
+  // once I make this modular, take in a number for this (v1.2)
   private setFavoriteSongs(response: any) {
     this.favoriteSongs =
       response.items[0].id + '%2C' + response.items[1].id + '%2C' + response.items[2].id;
   }
 
-  // once I make this modular, take in a number for this
+  // once I make this modular, take in a number for this (v1.2)
   private setFavoriteArtists(artists: any) {
     this.favoriteArtists = artists.items[0].id;
   }
