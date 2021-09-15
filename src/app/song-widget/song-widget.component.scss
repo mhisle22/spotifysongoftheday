@@ -20,6 +20,7 @@ body {
   color: white;
   font-size: 3.5vw;
   @media (max-width: 768px) {
+    margin-top: 2vh;
     font-size: 2rem;
   }
   @media (max-height: 600px) {
@@ -113,6 +114,9 @@ body {
       color: black;
       padding: 0;
       margin: 20px 0 30px 0;
+      @media (max-width: 450px) {
+        margin: 15px 0 20px 0; //for small screens
+      }
       list-style-type: none;
       li {
         margin: 10px 0;
@@ -198,9 +202,10 @@ body {
   font-size: 2rem;
   cursor: pointer;
   margin-top: 10vh;
-  @media (max-height: 600px) {
-    margin-top: 3vh; //for extra small screens
+  @media (max-width: 450px) {
+    margin-top: 3vh; //for small screens
   }
+
   display: inline-block;
 
   position: relative;
