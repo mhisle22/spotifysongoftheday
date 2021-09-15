@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
 
   back() {
     this.sessionStorage.set('refresh_token', null); // uncommon, but delete token if they deny after previously accepting
-    this.document.location.href = 'https://mhisle22.github.io/SongOfTheDay/';
+    this.document.location.href = 'https://mhisle22.github.io/spotifysongoftheday/';
   }
 
 }
