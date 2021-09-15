@@ -22,6 +22,9 @@ body {
   @media (max-width: 768px) {
     font-size: 2rem;
   }
+  @media (max-height: 600px) {
+    font-size: 1.5rem;; //for extra small screens
+  }
   text-align: center;
 
   //animation code below
@@ -194,7 +197,10 @@ body {
   color: ghostwhite;
   font-size: 2rem;
   cursor: pointer;
-  margin-top: 3vh;
+  margin-top: 10vh;
+  @media (max-height: 600px) {
+    margin-top: 3vh; //for extra small screens
+  }
   display: inline-block;
 
   position: relative;

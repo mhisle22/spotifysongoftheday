@@ -24,6 +24,18 @@ export const environment: EnvironmentInterface = {
     spotify_link: 'https://open.spotify.com/track/2QwObYJWyJTiozvs0RI7CF',
     artist: 'Radiohead',
     image_link: 'https://i.scdn.co/image/ab67616d0000b2739293c743fa542094336c5e12',
+  } ,
+  {
+    song: 'The Difference',
+    spotify_link: 'https://open.spotify.com/track/4nlvKIIetOWGIMyhjQXgOZ',
+    artist: 'Flume',
+    image_link: 'https://i.scdn.co/image/ab67616d0000b273a8d74e789b99484e0e169001',
+  },
+  {
+    song: 'Choke',
+    spotify_link: 'https://open.spotify.com/track/37mfTcSlX60JtAvAETytGs',
+    artist: 'I DONT KNOW HOW BUT THEY FOUND ME',
+    image_link: 'https://i.scdn.co/image/ab67616d0000b273e9774ee3932efbc4c3d68e6b',
   } ]
 
 };

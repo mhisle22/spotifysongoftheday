@@ -9,7 +9,7 @@ import { SpotifySongResponse } from './interfaces/spotify-song-response.interfac
 import { DOCUMENT } from '@angular/common';
 import { environment } from '../../environments/environment';
 
-const limitSongs: number = 3;
+const limitSongs: number = 5;
 
 @Component({
   selector: 'ng-song-widget',
@@ -77,7 +77,7 @@ export class SongWidgetComponent implements OnInit {
       this.setSongData(environment.songs, 0);
     }
     else if (!!this.sessionStorage.get('refresh_token')) { // check if refresh token available
-      this.retrieveSongRefresh()
+      this.retrieveSongRefresh();
     }
     else {
       this.retrieveSong();
@@ -95,7 +95,7 @@ export class SongWidgetComponent implements OnInit {
       tap(artists =>
         this.setFavoriteArtists(artists)),
       switchMap(() =>
-        this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists)),
+        this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists, limitSongs)),
       tap(value => {
         this.setSongData(value, this.position);
       }),
@@ -114,7 +114,7 @@ export class SongWidgetComponent implements OnInit {
       tap(artists =>
         this.setFavoriteArtists(artists)),
       switchMap(() =>
-        this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists)),
+        this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists, limitSongs)),
       tap(value => {
         this.setSongData(value, this.position);
       }),
@@ -127,13 +127,13 @@ export class SongWidgetComponent implements OnInit {
     this.sessionStorage.set('refresh_token', data.refresh);
   }
 
-  // once I make this modular, take in a number for this (v1.2)
+  // once I make this modular, take in a number for this (v1.3)
   private setFavoriteSongs(response: any) {
     this.favoriteSongs =
       response.items[0].id + '%2C' + response.items[1].id + '%2C' + response.items[2].id;
   }
 
-  // once I make this modular, take in a number for this (v1.2)
+  // once I make this modular, take in a number for this (v1.3)
   private setFavoriteArtists(artists: any) {
     this.favoriteArtists = artists.items[0].id;
   }
@@ -152,6 +152,7 @@ export class SongWidgetComponent implements OnInit {
     this.document.location.href = 'https://mhisle22.github.io/songoftheday/';
   }
 
+  // ----------------------------------------------
   // ---song scrolling animation functions below---
 
   goDown() {
@@ -171,13 +172,13 @@ export class SongWidgetComponent implements OnInit {
       this.showTitle = false;
       this.isIn = true;
 
-      if (this.position == limitSongs - 1) {
+      if (this.position == limitSongs - 1) { // bottom
         this.showDown = false;
       }
-      else if (this.position == 0) {
+      else if (this.position == 0) { // top
         this.top = true;
       }
-      else {
+      else { // middle
         this.showDown = true;
         this.showUp = true;
         this.top = false;
