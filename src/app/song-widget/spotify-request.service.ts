@@ -40,10 +40,11 @@ export class SpotifyRequestService {
     return this.httpClient.get<any>(url, curlHeader);
   }
 
-  public getSongRecommendations(authToken: string, favoriteTracks: string, favoriteArtists: string) {
-     const url =
-      'https://api.spotify.com/v1/recommendations?limit=1&market=US&seed_artists='
-      + favoriteArtists + '&seed_genres=*&seed_tracks=' + favoriteTracks;
+  public getSongRecommendations(authToken: string, favoriteTracks: string, favoriteArtists: string, limitSongs: number) {
+    const url =
+      'https://api.spotify.com/v1/recommendations?limit=' + limitSongs +
+      '&market=US&seed_artists=' + favoriteArtists + 
+      '&seed_genres=*&seed_tracks=' + favoriteTracks;
 
     const curlHeader = {
       headers: new HttpHeaders({

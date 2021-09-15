@@ -1,22 +1,45 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
+import { trigger, style, animate, transition, state, AnimationEvent } from "@angular/animations";
 import { HttpClient } from '@angular/common/http';
 import { switchMap, tap, catchError } from 'rxjs/operators';
 import { SessionStorageService } from 'angular-web-storage';
 import { SpotifyRequestService } from './spotify-request.service';
 import { AuthenticateService } from './authenticate.service';
-import { SpotifySongResponse } from "./interfaces/spotify-song-response.interface";
-import { DOCUMENT } from "@angular/common";
+import { SpotifySongResponse } from './interfaces/spotify-song-response.interface';
+import { DOCUMENT } from '@angular/common';
+import { environment } from '../../environments/environment';
+
+const limitSongs: number = 5;
 
 @Component({
   selector: 'ng-song-widget',
   templateUrl: './song-widget.component.html',
-  styleUrls: ['./song-widget.component.scss']
+  styleUrls: ['./song-widget.component.scss'],
+  animations: [
+    trigger('nextSong', [
+
+      state('in', style({
+        opacity: 1
+      })),
+      state('out', style({
+        opacity: 0,
+      })),
+
+      transition('in => out', [
+        animate('1s'),
+      ]),
+      transition('out => in', [
+        animate('1s'),
+      ])
+    ])
+  ]
 })
 export class SongWidgetComponent implements OnInit {
 
   favoriteSongs: string; // actually a concat of these song's IDs
   favoriteArtists: string; // ditto
   songs: SpotifySongResponse[];
+  position: number = 0;
 
   spotify_link: string;
   image_link: string;
@@ -26,6 +49,12 @@ export class SongWidgetComponent implements OnInit {
 
   errorMessage: string;
 
+  // animation bools
+  isIn: boolean = true;
+  showTitle: boolean = true;
+  showUp: boolean = false;
+  showDown: boolean = true;
+  top: boolean = false;
 
   private _authToken: string;
   get authToken(): string {
@@ -44,15 +73,15 @@ export class SongWidgetComponent implements OnInit {
               private authService: AuthenticateService) { }
 
   ngOnInit(): void {
-
-    // check if refresh token available
-    if (!!this.sessionStorage.get('refresh_token')) {
-      this.retrieveSongRefresh()
+    if (environment.version === 'qa') {
+      this.setSongData(environment.songs, 0);
+    }
+    else if (!!this.sessionStorage.get('refresh_token')) { // check if refresh token available
+      this.retrieveSongRefresh();
     }
     else {
       this.retrieveSong();
     }
-
   }
 
   private retrieveSong() {
@@ -66,9 +95,9 @@ export class SongWidgetComponent implements OnInit {
       tap(artists =>
         this.setFavoriteArtists(artists)),
       switchMap(() =>
-        this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists)),
+        this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists, limitSongs)),
       tap(value => {
-        this.setSongData(value);
+        this.setSongData(value, this.position);
       }),
       catchError(err => this.errorMessage = err)
     ).subscribe();
@@ -85,9 +114,9 @@ export class SongWidgetComponent implements OnInit {
       tap(artists =>
         this.setFavoriteArtists(artists)),
       switchMap(() =>
-        this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists)),
+        this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists, limitSongs)),
       tap(value => {
-        this.setSongData(value);
+        this.setSongData(value, this.position);
       }),
       catchError(err => this.errorMessage = err)
     ).subscribe();
@@ -98,29 +127,64 @@ export class SongWidgetComponent implements OnInit {
     this.sessionStorage.set('refresh_token', data.refresh);
   }
 
-  // once I make this modular, take in a number for this
+  // once I make this modular, take in a number for this (v1.3)
   private setFavoriteSongs(response: any) {
     this.favoriteSongs =
       response.items[0].id + '%2C' + response.items[1].id + '%2C' + response.items[2].id;
   }
 
-  // once I make this modular, take in a number for this
+  // once I make this modular, take in a number for this (v1.3)
   private setFavoriteArtists(artists: any) {
     this.favoriteArtists = artists.items[0].id;
   }
 
-  private setSongData(values: SpotifySongResponse[]) {
+  private setSongData(values: SpotifySongResponse[], index: number) {
     this.songs = values;
-    this.spotify_link = values[0].spotify_link;
-    this.image_link = values[0].image_link;
-    this.song = values[0].song;
-    this.long_song = values[0].song.length > 20;
-    this.artist = values[0].artist;
+    this.spotify_link = values[index].spotify_link;
+    this.image_link = values[index].image_link;
+    this.song = values[index].song;
+    this.long_song = values[index].song.length > 20;
+    this.artist = values[index].artist;
   }
 
   back() {
     this.sessionStorage.set('refresh_token', null); // uncommon, but delete token if they deny after previously accepting
-    this.document.location.href = 'https://mhisle22.github.io/SongOfTheDay/';
+    this.document.location.href = 'https://mhisle22.github.io/spotifysongoftheday/';
   }
+
+  // ----------------------------------------------
+  // ---song scrolling animation functions below---
+
+  goDown() {
+    this.isIn = false;
+    this.position++;
+  }
+
+  goUp() {
+    this.isIn = false;
+    this.position--;
+  }
+
+  nextSong(event: AnimationEvent) {
+    // only run after the fadeout. Or in. You get the point
+    if (event.fromState === 'in') {
+      this.setSongData(this.songs, this.position);
+      this.showTitle = false;
+      this.isIn = true;
+
+      if (this.position == limitSongs - 1) { // bottom
+        this.showDown = false;
+      }
+      else if (this.position == 0) { // top
+        this.top = true;
+      }
+      else { // middle
+        this.showDown = true;
+        this.showUp = true;
+        this.top = false;
+      }
+    }
+  }
+
 
 }

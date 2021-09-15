@@ -20,8 +20,11 @@ body {
   color: white;
   font-size: 3.5vw;
   @media (max-width: 768px) {
+    margin-top: 2vh;
     font-size: 2rem;
-    margin-top: 5vh;
+  }
+  @media (max-height: 600px) {
+    font-size: 1.5rem;; //for extra small screens
   }
   text-align: center;
 
@@ -97,8 +100,6 @@ body {
 
 
 .card {
-  // background: $color-one;
-  // box-shadow: 0 0 20px rgba(0,0,0,0.4);
   border-radius: 5px;
   margin: 3vh auto;
   width: 390px;
@@ -113,6 +114,9 @@ body {
       color: black;
       padding: 0;
       margin: 20px 0 30px 0;
+      @media (max-width: 450px) {
+        margin: 15px 0 20px 0; //for small screens
+      }
       list-style-type: none;
       li {
         margin: 10px 0;
@@ -180,4 +184,82 @@ body {
   display: flex;
   margin-top: 4vh;
   margin-bottom: 3vh;
+}
+
+.arrow-container {
+  position: relative;
+  opacity: 0;
+  -webkit-animation: pulse-in 1s forwards;
+  -moz-animation: pulse-in 1s forwards;
+  animation: pulse-in 1s forwards;
+  -webkit-animation-delay: 2.5s;
+  -moz-animation-delay: 2.5s;
+  animation-delay: 2.5s;
+}
+
+.fa-chevron-up {
+  color: ghostwhite;
+  font-size: 2rem;
+  cursor: pointer;
+  margin-top: 10vh;
+  @media (max-width: 450px) {
+    margin-top: 3vh; //for small screens
+  }
+
+  display: inline-block;
+
+  position: relative;
+  -webkit-animation: pulse 2s infinite;
+  -moz-animation: pulse 2s infinite;
+  animation: pulse 2s infinite;
+
+  @-webkit-keyframes pulse {
+    0% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(0, 10px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+  @-moz-keyframes pulse {
+    0% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(0, 10px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+  @keyframes pulse {
+    0% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(0, 10px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+}
+
+.fa-chevron-down {
+  color: ghostwhite;
+  font-size: 2rem;
+  cursor: pointer;
+  display: inline-block;
+
+  position: relative;
+  -webkit-animation: pulse 2s infinite;
+  -moz-animation: pulse 2s infinite;
+  animation: pulse 2s infinite;
+}
+
+.up-arrow-invisible {
+  visibility: hidden;
 }

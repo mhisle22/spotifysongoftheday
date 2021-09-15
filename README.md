@@ -11,10 +11,14 @@ This Angular-based web app was inspired by my (Mark Hisle) desire to liven up my
 
 Below is a list of a few features I plan to implement into this application:
 
-* v1.0.0: Basic song suggestion based on user authentication
-* v1.1.0: Multiple suggestion scrolling
-* v1.2.0: Advanced song queries based on built-in variables (danceability, genre, etc.)
-* v1.3.0: Historical suggestion data tracking with AWS DynamoDB and playlist creation via AWS Lambda
+* v1.0.0: Basic song suggestion based on user authentication :ballot_box_with_check:
+* v1.1.0: Multiple suggestion scrolling :ballot_box_with_check:
+    * Scroll through 5 additional songs
+    * Added test data loading for streamlined UI testing
+    * Small UI updates and fixes
+    * Node package updates
+* v1.2.0: Historical suggestion data tracking with AWS DynamoDB and playlist creation via AWS Lambda
+* v1.3.0: Advanced song queries based on built-in variables (danceability, genre, etc.)
 * v1.4.0: Email notifications at a set time each day with Lambda and SNS, with subscribe link in app
 * v1.?: AWS Kinesis Analytics? What can data science bring us here?
 
@@ -40,7 +44,12 @@ All commits are analyzed for security flaws by GitHub Advanced Security.
  npm start
  ```
 
-3. Deploy the project for Github pages via angular-cli-ghpages
+3. Load in sample data for UI testing on the main page (skips any login pages):
+ ```bash
+ npm run qa
+ ```
+
+4. Deploy the project for Github pages via angular-cli-ghpages
  ```bash
  ng deploy --baseHref="https://mhisle22.github.io/spotifysongoftheday/"
  ```

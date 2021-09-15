@@ -15,7 +15,7 @@ const CLIENT_ID = '5afa66ec3eda4ecbb2e3d82139819866';
 export class LoginComponent implements OnInit {
   version: string = environment.version;
   error: string | undefined;
-  accessToken: string;
+  accessToken: string | undefined;
 
 
   constructor(@Inject(DOCUMENT) private document: Document,
@@ -24,17 +24,24 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(fragment => {
-      if(Object.keys(fragment).length !== 0) {
-        // did not authorize
-        if(fragment.error || fragment.state !== '123') {
-          this.error = fragment.error;
-          this.accessToken = 'Access Denied';
-          return;
-        }
-        this.accessToken = fragment.code;
+    // testing only
+    if (this.version === 'qa') {
+      this.accessToken = environment.accessToken;
+    }
+    else {
+      this.route.queryParams.subscribe(fragment => {
+        if (Object.keys(fragment).length !== 0) {
+          // did not authorize
+          if (fragment.error || fragment.state !== '123') {
+            this.error = fragment.error;
+            this.accessToken = 'Access Denied';
+            return;
+          }
+          this.accessToken = fragment.code;
 
-      }});
+        }
+      });
+    }
   }
 
   login() {
@@ -75,7 +82,7 @@ export class LoginComponent implements OnInit {
 
   back() {
     this.sessionStorage.set('refresh_token', null); // uncommon, but delete token if they deny after previously accepting
-    this.document.location.href = 'https://mhisle22.github.io/SongOfTheDay/';
+    this.document.location.href = 'https://mhisle22.github.io/spotifysongoftheday/';
   }
 
 }
