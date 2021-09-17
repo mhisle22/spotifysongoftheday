@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SongWidgetComponent } from './song-widget.component';
-import { AuthenticateService } from './authenticate.service';
-import { SpotifyRequestService } from './spotify-request.service';
+import { AuthenticateService } from '../services/authenticate.service';
+import { SpotifyRequestService } from '../services/spotify-request.service';
 
 @NgModule({
   imports: [

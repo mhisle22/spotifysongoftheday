@@ -3,8 +3,8 @@ import { trigger, style, animate, transition, state, AnimationEvent } from "@ang
 import { HttpClient } from '@angular/common/http';
 import { switchMap, tap, catchError } from 'rxjs/operators';
 import { SessionStorageService } from 'angular-web-storage';
-import { SpotifyRequestService } from './spotify-request.service';
-import { AuthenticateService } from './authenticate.service';
+import { SpotifyRequestService } from '../services/spotify-request.service';
+import { AuthenticateService } from '../services/authenticate.service';
 import { SpotifySongResponse } from './interfaces/spotify-song-response.interface';
 import { DOCUMENT } from '@angular/common';
 import { environment } from '../../environments/environment';

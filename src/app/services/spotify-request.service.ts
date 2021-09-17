@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { LocalStorageService } from 'angular-web-storage';
-import { SpotifySongResponse } from "./interfaces/spotify-song-response.interface";
+import { SpotifySongResponse } from "../song-widget/interfaces/spotify-song-response.interface";
 
 
 @Injectable()

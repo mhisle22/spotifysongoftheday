@@ -3,7 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { SessionStorageService } from 'angular-web-storage';
 import { environment } from '../../environments/environment';
-
+import { AWSService } from '../services/aws.service';
 
 const CLIENT_ID = '5afa66ec3eda4ecbb2e3d82139819866';
 
@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor(@Inject(DOCUMENT) private document: Document,
               private route: ActivatedRoute,
-              private sessionStorage: SessionStorageService) {
+              private sessionStorage: SessionStorageService,
+              private AwsService: AWSService) {
   }
 
   ngOnInit() {
@@ -83,6 +84,10 @@ export class LoginComponent implements OnInit {
   back() {
     this.sessionStorage.set('refresh_token', null); // uncommon, but delete token if they deny after previously accepting
     this.document.location.href = 'https://mhisle22.github.io/spotifysongoftheday/';
+  }
+
+  query() {
+    this.AwsService.query();
   }
 
 }
