@@ -29,7 +29,7 @@ const limitSongs: number = 5;
         animate('1s'),
       ]),
       transition('out => in', [
-        animate('1s'),
+        animate('1s 0.5s'),
       ])
     ])
   ]
@@ -68,7 +68,6 @@ export class SongWidgetComponent implements OnInit {
 
   constructor(@Inject(DOCUMENT) private document: Document,
               private sessionStorage: SessionStorageService,
-              private httpClient: HttpClient,
               private spotifyService: SpotifyRequestService,
               private authService: AuthenticateService) { }
 
