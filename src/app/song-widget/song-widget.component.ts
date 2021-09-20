@@ -1,6 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { trigger, style, animate, transition, state, AnimationEvent } from "@angular/animations";
-import { HttpClient } from '@angular/common/http';
 import { switchMap, tap, catchError } from 'rxjs/operators';
 import { SessionStorageService } from 'angular-web-storage';
 import { SpotifyRequestService } from '../services/spotify-request.service';
@@ -8,6 +7,7 @@ import { AuthenticateService } from '../services/authenticate.service';
 import { SpotifySongResponse } from './interfaces/spotify-song-response.interface';
 import { DOCUMENT } from '@angular/common';
 import { environment } from '../../environments/environment';
+import { AWSService } from '../services/aws.service';
 
 const limitSongs: number = 5;
 
@@ -46,6 +46,7 @@ export class SongWidgetComponent implements OnInit {
   song: string;
   long_song: boolean; // calculate whether to bump down font size
   artist: string;
+  id: string;
 
   errorMessage: string;
 
@@ -69,11 +70,13 @@ export class SongWidgetComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: Document,
               private sessionStorage: SessionStorageService,
               private spotifyService: SpotifyRequestService,
-              private authService: AuthenticateService) { }
+              private authService: AuthenticateService,
+              private awsService: AWSService) { }
 
   ngOnInit(): void {
     if (environment.version === 'qa') {
       this.setSongData(environment.songs, 0);
+      this.storeSongs(environment.songs, environment.userID);
     }
     else if (!!this.sessionStorage.get('refresh_token')) { // check if refresh token available
       this.retrieveSongRefresh();
@@ -93,10 +96,14 @@ export class SongWidgetComponent implements OnInit {
       switchMap(() => this.spotifyService.getFavoriteArtists(this.authToken)),
       tap(artists =>
         this.setFavoriteArtists(artists)),
+      switchMap(() => this.spotifyService.getUserID(this.authToken)),
+      tap(profile =>
+          this.setID(profile)),  
       switchMap(() =>
         this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists, limitSongs)),
       tap(value => {
         this.setSongData(value, this.position);
+        this.storeSongs(value, this.id);
       }),
       catchError(err => this.errorMessage = err)
     ).subscribe();
@@ -112,10 +119,14 @@ export class SongWidgetComponent implements OnInit {
       switchMap(() => this.spotifyService.getFavoriteArtists(this.authToken)),
       tap(artists =>
         this.setFavoriteArtists(artists)),
+      switchMap(() => this.spotifyService.getUserID(this.authToken)),
+      tap(profile =>
+          this.setID(profile)),
       switchMap(() =>
         this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists, limitSongs)),
       tap(value => {
         this.setSongData(value, this.position);
+        this.storeSongs(value, this.id);
       }),
       catchError(err => this.errorMessage = err)
     ).subscribe();
@@ -137,6 +148,10 @@ export class SongWidgetComponent implements OnInit {
     this.favoriteArtists = artists.items[0].id;
   }
 
+  private setID(response: any) {
+    this.id = response.id;
+  }
+
   private setSongData(values: SpotifySongResponse[], index: number) {
     this.songs = values;
     this.spotify_link = values[index].spotify_link;
@@ -144,6 +159,11 @@ export class SongWidgetComponent implements OnInit {
     this.song = values[index].song;
     this.long_song = values[index].song.length > 20;
     this.artist = values[index].artist;
+  }
+
+  private storeSongs(values: SpotifySongResponse[], id: string) {
+    // add to dynamodb table for user
+    this.awsService.insertSongs(values, id);
   }
 
   back() {

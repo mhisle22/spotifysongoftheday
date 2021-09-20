@@ -7,6 +7,7 @@ export const environment: EnvironmentInterface = {
   production: false,
   version: 'qa',
   accessToken: 'sampleaccesstokentest1234',
+  userID: 'fakeUser1234',
   songs: [{
     song: 'Suspirium',
     spotify_link: 'https://open.spotify.com/track/4Y1igB1GDncJvt7ezbV3cW',

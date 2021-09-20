@@ -40,6 +40,20 @@ export class SpotifyRequestService {
     return this.httpClient.get<any>(url, curlHeader);
   }
 
+  public getUserID(authToken: string) {
+    const url = 'https://api.spotify.com/v1/me';
+
+    const curlHeader = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authToken
+      })
+    };
+
+    return this.httpClient.get<any>(url, curlHeader);
+  }
+
   public getSongRecommendations(authToken: string, favoriteTracks: string, favoriteArtists: string, limitSongs: number) {
     const url =
       'https://api.spotify.com/v1/recommendations?limit=' + limitSongs +
@@ -64,6 +78,5 @@ export class SpotifyRequestService {
         };
         }) as SpotifySongResponse[];}))
   }
-
 
 }

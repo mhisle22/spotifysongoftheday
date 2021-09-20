@@ -4,5 +4,6 @@ export interface EnvironmentInterface {
   production: boolean;
   version: string;
   accessToken: string;
+  userID: string;
   songs: SpotifySongResponse[];
 }
