@@ -9,7 +9,7 @@ import { DOCUMENT } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { AWSService } from '../services/aws.service';
 
-const limitSongs: number = 5;
+const limitSongs: number = 5; // 0 < limitsSongs < 25, since DynamoDB can only add 25 at once
 
 @Component({
   selector: 'ng-song-widget',
@@ -163,7 +163,7 @@ export class SongWidgetComponent implements OnInit {
 
   private storeSongs(values: SpotifySongResponse[], id: string) {
     // add to dynamodb table for user
-    this.awsService.insertSongs(values, id);
+    this.awsService.insertSongs(values, id, limitSongs);
   }
 
   back() {

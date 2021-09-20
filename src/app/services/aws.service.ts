@@ -41,30 +41,46 @@ export class AWSService {
       });
     }
 
-    public insertSongs(songs: SpotifySongResponse[], id: string) {
+    public insertSongs(songs: SpotifySongResponse[], id: string, limit: number) {
       
       const time = datepipe.transform(Date.now(), 'd-MM-YYYY HH:mm:ss');
+      
+      const itemsArray = [];
 
-      // Set the parameters
+      // add songs up to limit
+      // NOTE: limited up to 25
+      for (let i = 0; i < limit; i++) {
+        const request = {
+          PutRequest: {
+            Item: {
+              'username': id, // PK
+              'URI': songs[i].uri, // SortKey
+              'artist': songs[i].artist,
+              'link': songs[i].spotify_link,
+              'song': songs[i].song,
+              'timestamp': time // to be used in v1.2.1, with playlist trimming
+            }
+          }
+        }
+        itemsArray.push(request);
+      }
+
       const params = {
-        TableName: table,
-        Item: {
-          'username': id, // PK
-          'timestamp': time, // SortKey
-          'artist': songs[0].artist,
-          'link': songs[0].spotify_link,
-          'song': songs[0].song,
-          'URI': 'sample',
+        RequestItems: { 
+          'SpotifySongsOfTheDay': itemsArray
         }
       };
 
-      this.docClient.put(params, function(err, data) {
+      // write using batch to avoid multiple network calls
+      // and overwrites if same PK and SortKey to update timestamp
+      this.docClient.batchWrite(params, function(err, data) {
         if (err) {
           console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
         } else {
           console.log("Added item:", JSON.stringify(data, null, 2));
         }
       });
+
     }
 
 }

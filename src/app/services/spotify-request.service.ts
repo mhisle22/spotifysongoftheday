@@ -74,7 +74,8 @@ export class SpotifyRequestService {
           spotify_link: track.external_urls.spotify,
           song: track.name,
           artist: track.artists[0].name,
-          image_link: track.album.images[0].url
+          image_link: track.album.images[0].url,
+          uri: track.uri
         };
         }) as SpotifySongResponse[];}))
   }

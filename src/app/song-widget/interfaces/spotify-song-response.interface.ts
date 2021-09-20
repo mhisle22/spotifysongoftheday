@@ -3,4 +3,5 @@ export interface SpotifySongResponse {
   song: string;
   artist: string;
   image_link: string;
+  uri: string;
 }
