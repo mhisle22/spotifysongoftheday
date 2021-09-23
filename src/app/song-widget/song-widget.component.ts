@@ -8,6 +8,7 @@ import { SpotifySongResponse } from './interfaces/spotify-song-response.interfac
 import { DOCUMENT } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { AWSService } from '../services/aws.service';
+import { Router } from '@angular/router';
 
 const limitSongs: number = 5; // 0 < limitsSongs < 25, since DynamoDB can only add 25 at once
 
@@ -56,6 +57,7 @@ export class SongWidgetComponent implements OnInit {
   showUp: boolean = false;
   showDown: boolean = true;
   top: boolean = false;
+  bottom: boolean = false;
 
   private _authToken: string;
   get authToken(): string {
@@ -71,7 +73,8 @@ export class SongWidgetComponent implements OnInit {
               private sessionStorage: SessionStorageService,
               private spotifyService: SpotifyRequestService,
               private authService: AuthenticateService,
-              private awsService: AWSService) { }
+              private awsService: AWSService,
+              private router: Router) { }
 
   ngOnInit(): void {
     if (environment.version === 'qa') {
@@ -172,7 +175,7 @@ export class SongWidgetComponent implements OnInit {
   }
 
   // ----------------------------------------------
-  // ---song scrolling animation functions below---
+  // --- song scrolling animation functions below ---
 
   goDown() {
     this.isIn = false;
@@ -193,6 +196,7 @@ export class SongWidgetComponent implements OnInit {
 
       if (this.position == limitSongs - 1) { // bottom
         this.showDown = false;
+        this.bottom = true;
       }
       else if (this.position == 0) { // top
         this.top = true;
@@ -201,9 +205,14 @@ export class SongWidgetComponent implements OnInit {
         this.showDown = true;
         this.showUp = true;
         this.top = false;
+        this.bottom = false;
       }
     }
   }
 
+  goToPlaylist() {
+    this.isIn = false;
+    this.router.navigate(['/playlist']);
+  }
 
 }

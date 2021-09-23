@@ -23,9 +23,14 @@
     <a href="{{spotify_link}}" class="btn">Check it out!</a>
   </div>
   <div class="text-center arrow-container" [ngClass]="{'up-arrow-invisible': !showDown}" (click)="goDown()">
-      <span class="scroll-icon">
-        <i class="fa fa-chevron-down" aria-hidden="true"></i>
-      </span>
+    <span class="scroll-icon">
+      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+    </span>
+  </div>
+  <div class="text-center" *ngIf="bottom">
+    <button class="btn btn-dark playlist-button" type="button" (click)="goToPlaylist()">
+      <span>See your playlist!</span>
+    </button>
   </div>
 </div>
 <ng-template #error>

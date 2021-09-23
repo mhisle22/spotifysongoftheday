@@ -43,7 +43,7 @@ export class AWSService {
 
     public insertSongs(songs: SpotifySongResponse[], id: string, limit: number) {
       
-      const time = datepipe.transform(Date.now(), 'd-MM-YYYY HH:mm:ss');
+      const time = datepipe.transform(Date.now(), 'YYYY-MM-d HH:mm:ss');
       
       const itemsArray = [];
 

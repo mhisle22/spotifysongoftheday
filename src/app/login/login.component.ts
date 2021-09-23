@@ -87,8 +87,4 @@ export class LoginComponent implements OnInit {
     this.document.location.href = 'https://mhisle22.github.io/spotifysongoftheday/';
   }
 
-  query() {
-    this.AwsService.query();
-  }
-
 }

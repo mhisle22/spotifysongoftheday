@@ -8,5 +8,6 @@ export const environment: EnvironmentInterface = {
   version: pkg.version,
   accessToken: '',
   userID: '',
-  songs: []
+  songs: [],
+  playlistSongs: []
 };

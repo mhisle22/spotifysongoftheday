@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatTableModule } from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,10 +12,15 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { CommonModule } from "@angular/common";
 import { AWSService } from './services/aws.service';
+import { MatSortModule } from '@angular/material/sort';
+import { CdkTableModule } from '@angular/cdk/table';
+import { PlaylistComponent } from './playlist/playlist.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    PlaylistComponent
   ],
   imports: [
     BrowserModule,
@@ -23,8 +29,12 @@ import { AWSService } from './services/aws.service';
     HttpClientModule,
     AuthModule,
     SongWidgetModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatTableModule,
+    MatSortModule,
+    CdkTableModule
   ],
+  entryComponents: [PlaylistComponent],
   providers: [SpotifyRequestService, AuthenticateService, AWSService],
   bootstrap: [AppComponent]
 })

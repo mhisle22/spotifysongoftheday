@@ -263,3 +263,11 @@ body {
 .up-arrow-invisible {
   visibility: hidden;
 }
+
+.playlist-button {
+  margin-top: -1vh;
+  span {
+    font-weight: 500;
+    line-height: 2.5;
+  }
+}
