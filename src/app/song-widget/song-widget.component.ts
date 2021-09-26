@@ -212,7 +212,7 @@ export class SongWidgetComponent implements OnInit {
 
   goToPlaylist() {
     this.isIn = false;
-    this.router.navigate(['/playlist']);
+    this.router.navigate(['/playlist'], {state: { data: {'id': this.id} }});
   }
 
 }

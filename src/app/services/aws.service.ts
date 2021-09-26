@@ -1,6 +1,8 @@
 import { DatePipe } from "@angular/common";
 import { Injectable } from "@angular/core";
-import { config, DynamoDB } from 'aws-sdk';
+import { AWSError, config, DynamoDB } from 'aws-sdk';
+import { QueryOutput } from "aws-sdk/clients/dynamodb";
+import { PromiseResult } from "aws-sdk/lib/request";
 import Config from '../../config.json';
 import { SpotifySongResponse } from "../song-widget/interfaces/spotify-song-response.interface";
 
@@ -22,24 +24,19 @@ export class AWSService {
       this.docClient = new DynamoDB.DocumentClient();
     }
 
-    public query() {
+    public query(username: string): Promise<PromiseResult<QueryOutput, AWSError>> {
       // Set the parameters
       const params = {
         TableName: table,
-        Key: {
-          'username' : 'mhisle22' ,
-          'timestamp': '14:05:30 09-16-2021',
-        }
+        ExpressionAttributeValues: {
+          ':username' : username ,
+        },
+        KeyConditionExpression: 'username = :username',
+        ProjectionExpression: 'username, URI, artist, link, song, suggestTime',
       };
 
-      this.docClient.get(params, function(err, data) {
-        if (err) {
-          console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
-        } else {
-          console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
-        }
-      });
-    }
+      return this.docClient.query(params).promise();
+     }
 
     public insertSongs(songs: SpotifySongResponse[], id: string, limit: number) {
       
@@ -58,7 +55,7 @@ export class AWSService {
               'artist': songs[i].artist,
               'link': songs[i].spotify_link,
               'song': songs[i].song,
-              'timestamp': time // to be used in v1.2.1, with playlist trimming
+              'suggestTime': time // to be used in v1.2.1, with playlist trimming
             }
           }
         }
