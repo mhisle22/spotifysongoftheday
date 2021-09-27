@@ -66,6 +66,10 @@
   }
 }
 
+.header-left {
+  text-align: left;
+}
+
 .mat-table {
   width: 70%;
   @media (max-width: 768px) {
@@ -105,6 +109,11 @@
 
   .underline {
     text-decoration: underline;
+  }
+
+  a {
+    box-sizing: initial;
+    color: black;
   }
 
   .mat-column-position {

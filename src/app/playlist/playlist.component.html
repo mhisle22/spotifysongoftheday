@@ -13,7 +13,7 @@
         Song
       </mat-header-cell>
       <mat-cell class="bold italics underline" *matCellDef="let element"> 
-        {{element.song}} 
+        <a href="{{element.link}}">{{element.song}} </a>
       </mat-cell>
     </ng-container>
 
@@ -28,7 +28,9 @@
     <!-- Date Suggested Column -->
     <ng-container matColumnDef="timestamp">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Date Suggested
+        <div class="header-left"> 
+          Date Suggested
+        </div>
       </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.timestamp | date: 'mediumDate'}}  </mat-cell>
     </ng-container>
@@ -37,8 +39,14 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
   <div class="text-center">
-    <button class="btn btn-dark playlist-button" type="button" (click)="addPlaylist()">
+    <button class="btn btn-dark playlist-button" type="button" (click)="addPlaylist()" *ngIf="!isDone; else spinner">
       <span>Add playlist to your Spotify account!</span>
     </button>
   </div>
 </div>
+
+<ng-template #spinner>
+  <button class="btn btn-dark" type="button">
+    <span>Done!</span>
+  </button>
+</ng-template>

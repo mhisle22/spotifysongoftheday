@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { LocalStorageService } from 'angular-web-storage';
 import { SpotifySongResponse } from "../song-widget/interfaces/spotify-song-response.interface";
+import { UsersPlaylistSong } from '../song-widget/interfaces/users-playlist-song.interface';
 
 
 @Injectable()
@@ -78,6 +79,50 @@ export class SpotifyRequestService {
           uri: track.uri
         };
         }) as SpotifySongResponse[];}))
+  }
+
+  public createPlaylist(authToken: string, username: string) {
+    const url = 'https://api.spotify.com/v1/users/' + username + '/playlists';
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authToken
+      })
+    };
+
+    const body = {
+        "name": "New Playlist",
+        "description": "New playlist description",
+        "public": false
+    };
+
+    return this.httpClient.post<any>(url, body, options);
+  }
+
+  public addToPlaylist(authToken: string, songs: UsersPlaylistSong[], playlistName: string) {
+
+    let url = 'https://api.spotify.com/v1/playlists/' + playlistName + '/tracks?uris=';
+
+    // add all formerly suggested songs
+    songs.forEach(song => {
+      url += song.URI + ',';
+    });
+
+    // translation- remove last comma
+    // Thanks StackOverflow regex wizards!
+    url = url.replace(/,\s*$/, '');
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authToken
+      })
+    };
+
+    return this.httpClient.post<any>(url, options);
   }
 
 }

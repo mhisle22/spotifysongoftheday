@@ -1,12 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AWSService } from '../services/aws.service';
 import { UsersPlaylistSong } from '../song-widget/interfaces/users-playlist-song.interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { of } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SessionStorageService } from 'angular-web-storage';
+import { SpotifyRequestService } from '../services/spotify-request.service';
+import { AuthenticateService } from '../services/authenticate.service';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 
 
 @Component({
@@ -18,12 +20,26 @@ export class PlaylistComponent implements OnInit {
 
   playlistSongs: UsersPlaylistSong[] = [];
   dataSource: MatTableDataSource<UsersPlaylistSong>;
+  playlistName: string;
+  isDone: boolean = false;
 
   displayedColumns: string[] = ['position', 'song', 'artist', 'timestamp'];
   @ViewChild(MatSort) sort: MatSort;
 
+  private _authToken: string;
+  get authToken(): string {
+    return this._authToken;
+  }
+  @Input()
+  set authToken(value: string) {
+    this._authToken = value;
+  }
+
   constructor(private AwsService: AWSService,
-              private route: ActivatedRoute) { 
+              private sessionStorage: SessionStorageService,
+              private route: ActivatedRoute,
+              private spotifyService: SpotifyRequestService,
+              private authService: AuthenticateService) { 
   }
 
   ngOnInit() {
@@ -35,7 +51,6 @@ export class PlaylistComponent implements OnInit {
     }
     else { 
       this.querySongs(this.route.snapshot.data['id']).then(data => {if (data.Items) {
-
         data.Items.forEach((element) => {
           this.playlistSongs.push({
             username: element.username,
@@ -71,7 +86,6 @@ export class PlaylistComponent implements OnInit {
   }
 
   setSongs(songs: UsersPlaylistSong[]) {
-    
     // probably a prettier way to do this
     for (let i = 1; i <= songs.length; i++) {
       songs[i-1].position = i;
@@ -84,8 +98,34 @@ export class PlaylistComponent implements OnInit {
     return this.AwsService.query(id);
   }
 
+  private setAuthTokens(data: any) {
+    this.authToken = data.authToken;
+    this.sessionStorage.set('refresh_token', data.refresh);
+  }
+
+  private setPlaylist(name: string) {
+    this.playlistName = name;
+  }
+
+  private setDone(done: boolean) {
+    this.isDone = done;
+  }
+
   addPlaylist() {
-    console.log('ding');
+    // at this point it should need a refresh so don't use original token
+    this.authService.refreshAccessToken(this.sessionStorage.get('refresh_token')).pipe(
+      tap(data =>
+        this.setAuthTokens(data)),
+      switchMap(() => 
+        this.spotifyService.createPlaylist(this.authToken, this.route.snapshot.data['id'])),
+      tap(playlistName =>
+        this.setPlaylist(playlistName)),
+      switchMap(() => 
+        this.spotifyService.addToPlaylist(this.authToken, this.playlistSongs, this.playlistName)),
+      tap(done =>
+        this.setDone(true)),
+      catchError(async (err) => console.log(err))
+    ).subscribe();
   }
 
 }

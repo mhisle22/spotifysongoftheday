@@ -20,8 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(@Inject(DOCUMENT) private document: Document,
               private route: ActivatedRoute,
-              private sessionStorage: SessionStorageService,
-              private AwsService: AWSService) {
+              private sessionStorage: SessionStorageService) {
   }
 
   ngOnInit() {
