@@ -93,9 +93,9 @@ export class SpotifyRequestService {
     };
 
     const body = {
-        "name": "New Playlist",
-        "description": "New playlist description",
-        "public": false
+        'name': 'SpotifySongOfTheDay Playlist' + new Date().toLocaleDateString(),
+        'description': 'All your songs suggested by the Spotify Song of the Day app!',
+        'public': false
     };
 
     return this.httpClient.post<any>(url, body, options);
@@ -111,7 +111,7 @@ export class SpotifyRequestService {
     });
 
     // translation- remove last comma
-    // Thanks StackOverflow regex wizards!
+    // Thanks StackOverflow regex wizards
     url = url.replace(/,\s*$/, '');
 
     const options = {

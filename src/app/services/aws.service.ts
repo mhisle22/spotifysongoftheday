@@ -50,7 +50,7 @@ export class AWSService {
         const request = {
           PutRequest: {
             Item: {
-              'username': id, // PK
+              'username': btoa(id), // PK
               'URI': songs[i].uri, // SortKey
               'artist': songs[i].artist,
               'link': songs[i].spotify_link,

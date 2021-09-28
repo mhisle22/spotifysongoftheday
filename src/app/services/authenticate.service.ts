@@ -24,7 +24,7 @@ export class AuthenticateService {
     const body = new HttpParams()
       .set('client_id', CLIENT_ID)
       .set('grant_type', 'authorization_code')
-      .set('code', authToken)
+      .set('code', authToken) // as an FYI, they are handling the code verifier checking, no need for me to do it
       .set('code_verifier', this.sessionStorage.get('verifier'))
       .set('redirect_uri', uri);
 

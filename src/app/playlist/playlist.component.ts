@@ -53,7 +53,7 @@ export class PlaylistComponent implements OnInit {
       this.querySongs(this.route.snapshot.data['id']).then(data => {if (data.Items) {
         data.Items.forEach((element) => {
           this.playlistSongs.push({
-            username: element.username,
+            username: atob(String(element.username)),
             URI: element.URI,
             artist: element.artist,
             link: element.link,
@@ -119,10 +119,10 @@ export class PlaylistComponent implements OnInit {
       switchMap(() => 
         this.spotifyService.createPlaylist(this.authToken, this.route.snapshot.data['id'])),
       tap(playlistName =>
-        this.setPlaylist(playlistName)),
+        this.setPlaylist(playlistName.id)),
       switchMap(() => 
         this.spotifyService.addToPlaylist(this.authToken, this.playlistSongs, this.playlistName)),
-      tap(done =>
+      tap(() =>
         this.setDone(true)),
       catchError(async (err) => console.log(err))
     ).subscribe();
