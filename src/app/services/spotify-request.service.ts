@@ -82,37 +82,38 @@ export class SpotifyRequestService {
   }
 
   public createPlaylist(authToken: string, username: string) {
+
     const url = 'https://api.spotify.com/v1/users/' + username + '/playlists';
 
-    const options = {
-      headers: new HttpHeaders({
+    const options = new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + authToken
       })
-    };
+    ;
 
     const body = {
-        'name': 'SpotifySongOfTheDay Playlist' + new Date().toLocaleDateString(),
+        'name': 'SpotifySongOfTheDay Playlist ' + new Date().toLocaleDateString(),
         'description': 'All your songs suggested by the Spotify Song of the Day app!',
         'public': false
     };
 
-    return this.httpClient.post<any>(url, body, options);
+    return this.httpClient.post<any>(url, body, {headers: options});
   }
 
   public addToPlaylist(authToken: string, songs: UsersPlaylistSong[], playlistName: string) {
 
-    let url = 'https://api.spotify.com/v1/playlists/' + playlistName + '/tracks?uris=';
+    let url = 'https://api.spotify.com/v1/playlists/' + playlistName + '/tracks';
+
+    let playlist: String[] = [];
 
     // add all formerly suggested songs
     songs.forEach(song => {
-      url += song.URI + ',';
+      playlist.push(song.URI);
     });
 
-    // translation- remove last comma
-    // Thanks StackOverflow regex wizards
-    url = url.replace(/,\s*$/, '');
+    // send this as a body, since the spotify API has a nasty habit of cutting the query off if it's too big
+    const body = {'uris': playlist};
 
     const options = {
       headers: new HttpHeaders({
@@ -122,7 +123,7 @@ export class SpotifyRequestService {
       })
     };
 
-    return this.httpClient.post<any>(url, options);
+    return this.httpClient.post<any>(url, body, options);
   }
 
 }

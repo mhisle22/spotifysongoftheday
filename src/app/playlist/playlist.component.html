@@ -1,6 +1,6 @@
 <div class="playlist-container">
   <div class="title">Your previous songs of the day:</div>
-  <mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData()" matSortActive="timestamp" matSortDirection="asc" matSortDisableClear class="mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData()" class="mat-elevation-z8">
     <!-- Number Column -->
     <ng-container matColumnDef="position">
       <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
@@ -32,7 +32,7 @@
           Date Suggested
         </div>
       </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.timestamp | date: 'mediumDate'}}  </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.timestamp}}  </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

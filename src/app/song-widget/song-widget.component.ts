@@ -212,7 +212,8 @@ export class SongWidgetComponent implements OnInit {
 
   goToPlaylist() {
     this.isIn = false;
-    this.router.navigate(['/playlist'], {state: { data: {'id': this.id} }});
+    this.sessionStorage.set('id', this.id);
+    this.router.navigate(['/playlist']);
   }
 
 }

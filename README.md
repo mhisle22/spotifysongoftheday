@@ -17,18 +17,22 @@ Below is a list of a few features I plan to implement into this application:
     * Added test data loading for streamlined UI testing
     * Small UI updates and fixes
     * Node package updates
-* v1.2.0: Historical suggestion data tracking with AWS DynamoDB and playlist creation via AWS Lambda
+* v1.2.0: Historical suggestion data tracking and playlist creation via AWS DynamoDB and AWS Lambda :ballot_box_with_check:
+    * New playlist page retrieving data from SpotifySongsOfTheDay table
+    * Option to add a playlist to your spotify accounts
+    * Lambda function added to trim user's playlist songs stored in DynamoDB to less than 40
+    * Various bug fixes and CSS improvements
 * v1.3.0: Advanced song queries based on built-in variables (danceability, genre, etc.)
 * v1.4.0: Email notifications at a set time each day with Lambda and SNS, with subscribe link in app
-* v1.?: AWS Kinesis Analytics? What can data science bring us here?
+* v1.?: AWS Kinesis Analytics? Or what can data science bring us here?
 
 ## Software Stack
 
-* Node.js
-* Angular
-* AWS Lambda
-* AWS SNS
+* Node.js (14.15.0)
+* Angular (12.0.5)
 * AWS DynamoDB
+* AWS Lambda
+* AWS IAM and CloudWatch for development
 
 All commits are analyzed for security flaws by GitHub Advanced Security.
 

@@ -78,6 +78,9 @@
   margin: 3vh auto;
   border-radius: 10px;
   max-height: 70%;
+  @media (max-width: 768px) {
+    max-height: 60%;
+  }
   overflow-y: scroll;
 
   //animation code below
@@ -120,8 +123,8 @@
 
   .mat-column-position {
     @media (min-width: 768px) {
-      flex: 0 0 10% !important;
-      width: 10% !important;
+      flex: 0 0 14% !important;
+      width: 14% !important;
     }
     @media (max-width: 768px) {
       flex: 0 0 20% !important;

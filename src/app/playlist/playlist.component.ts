@@ -1,10 +1,9 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AWSService } from '../services/aws.service';
 import { UsersPlaylistSong } from '../song-widget/interfaces/users-playlist-song.interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SessionStorageService } from 'angular-web-storage';
 import { SpotifyRequestService } from '../services/spotify-request.service';
 import { AuthenticateService } from '../services/authenticate.service';
@@ -21,6 +20,7 @@ export class PlaylistComponent implements OnInit {
   playlistSongs: UsersPlaylistSong[] = [];
   dataSource: MatTableDataSource<UsersPlaylistSong>;
   playlistName: string;
+  loaded: boolean = false;
   isDone: boolean = false;
 
   displayedColumns: string[] = ['position', 'song', 'artist', 'timestamp'];
@@ -30,14 +30,12 @@ export class PlaylistComponent implements OnInit {
   get authToken(): string {
     return this._authToken;
   }
-  @Input()
   set authToken(value: string) {
     this._authToken = value;
   }
 
   constructor(private AwsService: AWSService,
               private sessionStorage: SessionStorageService,
-              private route: ActivatedRoute,
               private spotifyService: SpotifyRequestService,
               private authService: AuthenticateService) { 
   }
@@ -50,7 +48,7 @@ export class PlaylistComponent implements OnInit {
       });
     }
     else { 
-      this.querySongs(this.route.snapshot.data['id']).then(data => {if (data.Items) {
+      this.querySongs(this.sessionStorage.get('id')).then(data => {if (data.Items) {
         data.Items.forEach((element) => {
           this.playlistSongs.push({
             username: atob(String(element.username)),
@@ -86,12 +84,22 @@ export class PlaylistComponent implements OnInit {
   }
 
   setSongs(songs: UsersPlaylistSong[]) {
-    // probably a prettier way to do this
+    // probably a prettier way to do this buuuuut
     for (let i = 1; i <= songs.length; i++) {
       songs[i-1].position = i;
+
+      // need to format this the horrible way because of compatibility issues with Date objects
+      let date = songs[i-1].timestamp.toString();
+      date = date.substring(0, date.indexOf(' '));
+      const nonYear = date.substring(date.indexOf('-') + 1);
+      const year = date.substring(0, date.indexOf('-'));
+      date = nonYear + '-' + year;
+      songs[i-1].timestamp = date;
+
     }
     this.playlistSongs = songs;
     this.dataSource = new MatTableDataSource(this.playlistSongs);
+    this.loaded = true;
   }
 
   querySongs(id: string) {
@@ -117,7 +125,7 @@ export class PlaylistComponent implements OnInit {
       tap(data =>
         this.setAuthTokens(data)),
       switchMap(() => 
-        this.spotifyService.createPlaylist(this.authToken, this.route.snapshot.data['id'])),
+        this.spotifyService.createPlaylist(this.authToken, this.sessionStorage.get('id'))),
       tap(playlistName =>
         this.setPlaylist(playlistName.id)),
       switchMap(() => 

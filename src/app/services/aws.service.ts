@@ -29,7 +29,7 @@ export class AWSService {
       const params = {
         TableName: table,
         ExpressionAttributeValues: {
-          ':username' : username ,
+          ':username' : btoa(username),
         },
         KeyConditionExpression: 'username = :username',
         ProjectionExpression: 'username, URI, artist, link, song, suggestTime',
@@ -70,11 +70,11 @@ export class AWSService {
 
       // write using batch to avoid multiple network calls
       // and overwrites if same PK and SortKey to update timestamp
-      this.docClient.batchWrite(params, function(err, data) {
+      this.docClient.batchWrite(params, function(err) {
         if (err) {
           console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
         } else {
-          console.log("Added item:", JSON.stringify(data, null, 2));
+          return;
         }
       });
 

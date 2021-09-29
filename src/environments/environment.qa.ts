@@ -50,8 +50,8 @@ export const environment: EnvironmentInterface = {
     artist: 'Thom Yorke',
     link: 'https://open.spotify.com/track/4Y1igB1GDncJvt7ezbV3cW',
     song: 'Suspirium',
-    timestamp: new Date('2021-09-21'),
-    position: 0
+    timestamp: '2021-09-21 12:12:12',
+    position: 0,
   },
   {
     username: 'fakeUser1234', // PK
@@ -59,8 +59,8 @@ export const environment: EnvironmentInterface = {
     artist: 'Jack Staubers Micropop',
     link: 'https://open.spotify.com/track/1R8kvV2AgNPCA2Pp4Im1Ao',
     song: 'Baby Hotline',
-    timestamp: new Date('2021-09-22'),
-    position: 0
+    timestamp: '2021-09-22 12:12:12',
+    position: 0,
   },
   {
     username: 'fakeUser1234', // PK
@@ -68,8 +68,8 @@ export const environment: EnvironmentInterface = {
     artist: 'Radiohead',
     link: 'https://open.spotify.com/track/2QwObYJWyJTiozvs0RI7CF',
     song: 'Street Spirit (Fade Out)',
-    timestamp: new Date('2021-09-23'),
-    position: 0
+    timestamp: '2021-09-23 12:12:12',
+    position: 0,
   },
   {
     username: 'fakeUser1234', // PK
@@ -77,8 +77,8 @@ export const environment: EnvironmentInterface = {
     artist: 'Flume',
     link: 'https://open.spotify.com/track/4nlvKIIetOWGIMyhjQXgOZ',
     song: 'The Difference',
-    timestamp: new Date('2021-09-24'),
-    position: 0
+    timestamp: '2021-09-24 12:12:12',
+    position: 0,
   },
   {
     username: 'fakeUser1234', // PK
@@ -86,8 +86,8 @@ export const environment: EnvironmentInterface = {
     artist: 'I DONT KNOW HOW BUT THEY FOUND ME',
     link: 'https://open.spotify.com/track/37mfTcSlX60JtAvAETytGs',
     song: 'Choke',
-    timestamp: new Date('2021-09-24 12:12:12'),
-    position: 0
+    timestamp: '2021-09-24 12:12:12',
+    position: 0,
   }]
 
 };

@@ -4,6 +4,6 @@ export interface UsersPlaylistSong {
   artist: string,
   link: string,
   song: string,
-  timestamp: Date,
+  timestamp: string,
   position: number
 }
