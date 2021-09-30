@@ -1,6 +1,6 @@
 {
   "name": "spotifysongoftheday",
-  "version": "1.1.0",
+  "version": "1.2.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -12,22 +12,26 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.0.2",
+    "@angular/cdk": "~12.0.2",
     "@angular/common": "~12.0.2",
     "@angular/compiler": "~12.0.2",
     "@angular/core": "~12.0.2",
     "@angular/forms": "~12.0.2",
+    "@angular/material": "~12.0.2",
     "@angular/platform-browser": "~12.0.2",
     "@angular/platform-browser-dynamic": "~12.0.2",
     "@angular/router": "~12.0.2",
     "@fortawesome/fontawesome-free": "~5.15.3",
     "@ng-bootstrap/ng-bootstrap": "10.0.0",
-    "rxjs": "~7.1.0",
-    "tslib": "~2.2.0",
-    "zone.js": "~0.11.4",
+    "ajv": "6.12.6",
     "angular-web-storage": "~12.0.0",
+    "aws-sdk": "2.950.0",
     "bootstrap": "~5.1.1",
     "jquery": "3.5.1",
-    "ajv": "6.12.6"
+    "rxjs": "~7.1.0",
+    "tslib": "~2.2.0",
+    "util": "^0.12.4",
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.0.2",

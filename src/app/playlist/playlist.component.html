@@ -1,0 +1,52 @@
+<div class="playlist-container">
+  <div class="title">Your previous songs of the day:</div>
+  <mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData()" class="mat-elevation-z8">
+    <!-- Number Column -->
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+      <mat-cell class="underline" *matCellDef="let element;"> {{element.position}} </mat-cell>
+    </ng-container>
+
+    <!-- Song Column -->
+    <ng-container matColumnDef="song">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Song
+      </mat-header-cell>
+      <mat-cell class="bold italics underline" *matCellDef="let element"> 
+        <a href="{{element.link}}">{{element.song}} </a>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Artist Column -->
+    <ng-container matColumnDef="artist">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Artist
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.artist}} </mat-cell>
+    </ng-container>
+
+    <!-- Date Suggested Column -->
+    <ng-container matColumnDef="timestamp">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        <div class="header-left"> 
+          Date Suggested
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.timestamp}}  </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <div class="text-center">
+    <button class="btn btn-dark playlist-button" type="button" (click)="addPlaylist()" *ngIf="!isDone; else spinner">
+      <span>Add playlist to your Spotify account!</span>
+    </button>
+  </div>
+</div>
+
+<ng-template #spinner>
+  <button class="btn btn-dark" type="button">
+    <span>Done!</span>
+  </button>
+</ng-template>

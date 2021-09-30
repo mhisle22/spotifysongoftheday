@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { SessionStorageService} from 'angular-web-storage';
-import { SpotifyAuthResponse } from "./interfaces/spotify-auth-response.interface";
+import { SpotifyAuthResponse } from "../song-widget/interfaces/spotify-auth-response.interface";
 
 const CLIENT_ID = '5afa66ec3eda4ecbb2e3d82139819866';
 const uri = 'https://mhisle22.github.io/spotifysongoftheday/';
@@ -24,7 +24,7 @@ export class AuthenticateService {
     const body = new HttpParams()
       .set('client_id', CLIENT_ID)
       .set('grant_type', 'authorization_code')
-      .set('code', authToken)
+      .set('code', authToken) // as an FYI, they are handling the code verifier checking, no need for me to do it
       .set('code_verifier', this.sessionStorage.get('verifier'))
       .set('redirect_uri', uri);
 

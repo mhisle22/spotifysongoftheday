@@ -1,15 +1,16 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { trigger, style, animate, transition, state, AnimationEvent } from "@angular/animations";
-import { HttpClient } from '@angular/common/http';
 import { switchMap, tap, catchError } from 'rxjs/operators';
 import { SessionStorageService } from 'angular-web-storage';
-import { SpotifyRequestService } from './spotify-request.service';
-import { AuthenticateService } from './authenticate.service';
+import { SpotifyRequestService } from '../services/spotify-request.service';
+import { AuthenticateService } from '../services/authenticate.service';
 import { SpotifySongResponse } from './interfaces/spotify-song-response.interface';
 import { DOCUMENT } from '@angular/common';
 import { environment } from '../../environments/environment';
+import { AWSService } from '../services/aws.service';
+import { Router } from '@angular/router';
 
-const limitSongs: number = 5;
+const limitSongs: number = 5; // 0 < limitsSongs < 25, since DynamoDB can only add 25 at once
 
 @Component({
   selector: 'ng-song-widget',
@@ -29,7 +30,7 @@ const limitSongs: number = 5;
         animate('1s'),
       ]),
       transition('out => in', [
-        animate('1s'),
+        animate('1s 0.5s'),
       ])
     ])
   ]
@@ -46,6 +47,7 @@ export class SongWidgetComponent implements OnInit {
   song: string;
   long_song: boolean; // calculate whether to bump down font size
   artist: string;
+  id: string;
 
   errorMessage: string;
 
@@ -55,6 +57,7 @@ export class SongWidgetComponent implements OnInit {
   showUp: boolean = false;
   showDown: boolean = true;
   top: boolean = false;
+  bottom: boolean = false;
 
   private _authToken: string;
   get authToken(): string {
@@ -68,13 +71,15 @@ export class SongWidgetComponent implements OnInit {
 
   constructor(@Inject(DOCUMENT) private document: Document,
               private sessionStorage: SessionStorageService,
-              private httpClient: HttpClient,
               private spotifyService: SpotifyRequestService,
-              private authService: AuthenticateService) { }
+              private authService: AuthenticateService,
+              private awsService: AWSService,
+              private router: Router) { }
 
   ngOnInit(): void {
     if (environment.version === 'qa') {
       this.setSongData(environment.songs, 0);
+      this.storeSongs(environment.songs, environment.userID);
     }
     else if (!!this.sessionStorage.get('refresh_token')) { // check if refresh token available
       this.retrieveSongRefresh();
@@ -94,10 +99,14 @@ export class SongWidgetComponent implements OnInit {
       switchMap(() => this.spotifyService.getFavoriteArtists(this.authToken)),
       tap(artists =>
         this.setFavoriteArtists(artists)),
+      switchMap(() => this.spotifyService.getUserID(this.authToken)),
+      tap(profile =>
+          this.setID(profile)),  
       switchMap(() =>
         this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists, limitSongs)),
       tap(value => {
         this.setSongData(value, this.position);
+        this.storeSongs(value, this.id);
       }),
       catchError(err => this.errorMessage = err)
     ).subscribe();
@@ -113,10 +122,14 @@ export class SongWidgetComponent implements OnInit {
       switchMap(() => this.spotifyService.getFavoriteArtists(this.authToken)),
       tap(artists =>
         this.setFavoriteArtists(artists)),
+      switchMap(() => this.spotifyService.getUserID(this.authToken)),
+      tap(profile =>
+          this.setID(profile)),
       switchMap(() =>
         this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists, limitSongs)),
       tap(value => {
         this.setSongData(value, this.position);
+        this.storeSongs(value, this.id);
       }),
       catchError(err => this.errorMessage = err)
     ).subscribe();
@@ -138,6 +151,10 @@ export class SongWidgetComponent implements OnInit {
     this.favoriteArtists = artists.items[0].id;
   }
 
+  private setID(response: any) {
+    this.id = response.id;
+  }
+
   private setSongData(values: SpotifySongResponse[], index: number) {
     this.songs = values;
     this.spotify_link = values[index].spotify_link;
@@ -147,13 +164,18 @@ export class SongWidgetComponent implements OnInit {
     this.artist = values[index].artist;
   }
 
+  private storeSongs(values: SpotifySongResponse[], id: string) {
+    // add to dynamodb table for user
+    this.awsService.insertSongs(values, id, limitSongs);
+  }
+
   back() {
     this.sessionStorage.set('refresh_token', null); // uncommon, but delete token if they deny after previously accepting
     this.document.location.href = 'https://mhisle22.github.io/spotifysongoftheday/';
   }
 
   // ----------------------------------------------
-  // ---song scrolling animation functions below---
+  // --- song scrolling animation functions below ---
 
   goDown() {
     this.isIn = false;
@@ -174,6 +196,7 @@ export class SongWidgetComponent implements OnInit {
 
       if (this.position == limitSongs - 1) { // bottom
         this.showDown = false;
+        this.bottom = true;
       }
       else if (this.position == 0) { // top
         this.top = true;
@@ -182,9 +205,15 @@ export class SongWidgetComponent implements OnInit {
         this.showDown = true;
         this.showUp = true;
         this.top = false;
+        this.bottom = false;
       }
     }
   }
 
+  goToPlaylist() {
+    this.isIn = false;
+    this.sessionStorage.set('id', this.id);
+    this.router.navigate(['/playlist']);
+  }
 
 }

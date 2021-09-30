@@ -1,0 +1,170 @@
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.playlist-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  background-image: url("../../assets/backgrounds-music-min.jpg");
+  background-size: cover;
+}
+
+.title {
+  margin-top: 3vh;
+  color: white;
+  font-size: 3vw;
+  @media (max-width: 768px) {
+    margin-top: 2vh;
+    font-size: 2rem;
+  }
+  @media (max-height: 600px) {
+    font-size: 1.5rem;; //for extra small screens
+  }
+  text-align: center;
+
+  //animation code below
+  position: relative;
+  opacity: 0;
+  -webkit-animation: slideUp 1.5s forwards;
+  -moz-animation: slideUp 1.5s forwards;
+  animation: slideUp 1.5s forwards;
+  -webkit-animation-delay: .25s;
+  -moz-animation-delay: .25s;
+  animation-delay: .25s;
+
+  @-webkit-keyframes slideUp {
+    0% {
+      transform: translateX(25px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes slideUp {
+    0% {
+      transform: translateX(25px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slideUp {
+    0% {
+      transform: translateY(25px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+.header-left {
+  text-align: left;
+}
+
+.mat-table {
+  width: 70%;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+  margin: 3vh auto;
+  border-radius: 10px;
+  max-height: 70%;
+  @media (max-width: 768px) {
+    max-height: 60%;
+  }
+  overflow-y: scroll;
+
+  //animation code below
+  position: relative;
+  opacity: 0;
+  -webkit-animation: slideUp 1.25s forwards;
+  -moz-animation: slideUp 1.25s forwards;
+  animation: slideUp 1.25s forwards;
+  -webkit-animation-delay: .75s;
+  -moz-animation-delay: .75s;
+  animation-delay: .75s;
+
+
+  .mat-header-row {
+    border-radius: 10px;
+  }
+
+  .mat-header-cell {
+    font-size: 18px;
+    font-weight: 550;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .italics {
+    font-size: 15px;
+    font-style: italic;
+  }
+
+  .underline {
+    text-decoration: underline;
+  }
+
+  a {
+    box-sizing: initial;
+    color: black;
+  }
+
+  .mat-column-position {
+    @media (min-width: 768px) {
+      flex: 0 0 14% !important;
+      width: 14% !important;
+    }
+    @media (max-width: 768px) {
+      flex: 0 0 20% !important;
+      width: 20% !important;
+    }
+  }
+
+  .mat-column-song {
+    @media (max-width: 768px) {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+  }
+
+  .mat-column-artist {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+.playlist-button {
+  margin-top: -1vh;
+  span {
+    font-weight: 500;
+    line-height: 2.5;
+  }
+
+  //animation code below
+  position: relative;
+  opacity: 0;
+  -webkit-animation: slideUp 1.25s forwards;
+  -moz-animation: slideUp 1.25s forwards;
+  animation: slideUp 1.25s forwards;
+  -webkit-animation-delay: 1.5s;
+  -moz-animation-delay: 175s;
+  animation-delay: 1.5s;
+}

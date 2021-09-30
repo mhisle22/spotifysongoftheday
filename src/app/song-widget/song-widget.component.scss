@@ -16,9 +16,9 @@ body {
 }
 
 .title {
-  margin-top: 3vh;
+  margin-top: 2.5vh;
   color: white;
-  font-size: 3.5vw;
+  font-size: 3vw;
   @media (max-width: 768px) {
     margin-top: 2vh;
     font-size: 2rem;
@@ -26,6 +26,7 @@ body {
   @media (max-height: 600px) {
     font-size: 1.5rem;; //for extra small screens
   }
+
   text-align: center;
 
   //animation code below
@@ -82,10 +83,13 @@ body {
 }
 
 .song-title {
-  font-size: 2.5vw;
+  font-size: 2.4vw;
   font-weight: 700;
   @media (max-width: 768px) {
     font-size: 1.5rem;
+  }
+  @media (max-width: 1700px) {
+    font-size: 2vw; // for laptops
   }
 
 }
@@ -101,7 +105,7 @@ body {
 
 .card {
   border-radius: 5px;
-  margin: 3vh auto;
+  margin: 2.5vh auto;
   width: 390px;
   padding: 20px;
   text-align: center;
@@ -113,7 +117,7 @@ body {
     ul {
       color: black;
       padding: 0;
-      margin: 20px 0 30px 0;
+      margin: 15px 0 30px 0;
       @media (max-width: 450px) {
         margin: 15px 0 20px 0; //for small screens
       }
@@ -203,7 +207,10 @@ body {
   cursor: pointer;
   margin-top: 10vh;
   @media (max-width: 450px) {
-    margin-top: 3vh; //for small screens
+    margin-top: 1.5vh; //for small screens
+  }
+  @media (max-width: 1700px) {
+    margin-top: 3vh; //for laptops
   }
 
   display: inline-block;
@@ -262,4 +269,18 @@ body {
 
 .up-arrow-invisible {
   visibility: hidden;
+}
+
+.playlist-button {
+  margin-top: -2vh;
+  @media (max-width: 768px) {
+    margin-top: -4vh;
+  }
+  @media (max-width: 1700px) {
+    margin-top: -3.5vh; //for laptops
+  }
+  span {
+    font-weight: 500;
+    line-height: 2.5;
+  }
 }
