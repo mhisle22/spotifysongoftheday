@@ -88,8 +88,8 @@ body {
   @media (max-width: 768px) {
     font-size: 1.5rem;
   }
-  @media (max-width: 1700px) {
-    font-size: 2vw; // for laptops
+  @media (min-width: 1700px) {
+    font-size: 2vw;
   }
 
 }
@@ -209,8 +209,8 @@ body {
   @media (max-width: 450px) {
     margin-top: 1.5vh; //for small screens
   }
-  @media (max-width: 1700px) {
-    margin-top: 3vh; //for laptops
+  @media (min-width: 1700px) {
+    margin-top: 3vh;
   }
 
   display: inline-block;
