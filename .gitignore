@@ -40,6 +40,7 @@ yarn-error.log
 testem.log
 /typings
 config.json
+.angular
 
 # System Files
 .DS_Store
