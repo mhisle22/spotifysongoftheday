@@ -166,7 +166,7 @@ export class SongWidgetComponent implements OnInit {
 
   private storeSongs(values: SpotifySongResponse[], id: string) {
     // add to dynamodb table for user
-    this.awsService.insertSongs(values, id, limitSongs);
+    //this.awsService.insertSongs(values, id, limitSongs);
   }
 
   back() {

@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { AWSError, config, DynamoDB } from 'aws-sdk';
 import { QueryOutput } from "aws-sdk/clients/dynamodb";
 import { PromiseResult } from "aws-sdk/lib/request";
-import Config from '../../../config.json';
 import { SpotifySongResponse } from "../song-widget/interfaces/spotify-song-response.interface";
 
 const table = 'SpotifySongsOfTheDay';
@@ -16,12 +15,12 @@ export class AWSService {
 
     constructor() {
       config.update({
-          region: Config.region,
-          accessKeyId: Config.accessKeyId,
-          secretAccessKey: Config.secretAccessKey
+          region: 'us-east-2', // shoutout Ohio
+          accessKeyId: 'process.env.ACCESSKEYID',
+          secretAccessKey: 'process.env.SECRETACCESSKEY'
       });
 
-      this.docClient = new DynamoDB.DocumentClient();
+      //this.docClient = new DynamoDB.DocumentClient();
     }
 
     public query(username: string): Promise<PromiseResult<QueryOutput, AWSError>> {

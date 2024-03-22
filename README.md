@@ -5,6 +5,8 @@ Web app to suggest music based on public Spotify API
 
 This Angular-based web app was inspired by my (Mark Hisle) desire to liven up my daily commute with a fresh new song recommended by Spotify's publicly available API. [This API](https://developer.spotify.com/documentation/web-api/) is a free-to-use data source that constantly updates itself based upon your past music consumption on the app, as well as Spotify's algorithms designed to determine which songs they believe best match your current styles and preferences.
 
+NOTE: the playlist feature is currently turned off, because of the costs associated with the API Gateway/Lambda it will need for DynamoDB requests.
+
 **Disclaimer:** I have no affiliation with the Spotify company itself, nor have any control over your data- everything this app shows you is the extent of what I can see
 
 ## Feature Schedule
@@ -31,7 +33,6 @@ Below is a list of a few features I plan to implement into this application:
 * Node.js (20.11.1)
 * Angular (17.3.1)
 * AWS DynamoDB
-* AWS Lambda
 * AWS IAM and CloudWatch for development
 
 All commits are analyzed for security flaws by GitHub Advanced Security.
