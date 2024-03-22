@@ -28,8 +28,8 @@ Below is a list of a few features I plan to implement into this application:
 
 ## Software Stack
 
-* Node.js (14.15.0)
-* Angular (12.0.5)
+* Node.js (20.11.1)
+* Angular (17.3.1)
 * AWS DynamoDB
 * AWS Lambda
 * AWS IAM and CloudWatch for development

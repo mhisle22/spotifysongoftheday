@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { AWSError, config, DynamoDB } from 'aws-sdk';
 import { QueryOutput } from "aws-sdk/clients/dynamodb";
 import { PromiseResult } from "aws-sdk/lib/request";
-import Config from '../../config.json';
+import Config from '../../../config.json';
 import { SpotifySongResponse } from "../song-widget/interfaces/spotify-song-response.interface";
 
 const table = 'SpotifySongsOfTheDay';

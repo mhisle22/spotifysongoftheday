@@ -34,7 +34,6 @@ import { PlaylistComponent } from './playlist/playlist.component';
     MatSortModule,
     CdkTableModule
   ],
-  entryComponents: [PlaylistComponent],
   providers: [SpotifyRequestService, AuthenticateService, AWSService],
   bootstrap: [AppComponent]
 })

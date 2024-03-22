@@ -31,9 +31,17 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/scss/bootstrap.scss",
               "src/styles.scss"
             ],
-            "scripts": []
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -111,5 +119,8 @@
       }
     }
   },
-  "defaultProject": "songoftheday"
+  "defaultProject": "songoftheday",
+  "cli": {
+    "analytics": "a7c5010b-d210-4c82-aab8-3c8c3dc0d05f"
+  }
 }
