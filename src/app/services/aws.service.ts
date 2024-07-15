@@ -69,7 +69,7 @@ export class AWSService {
 
       // write using batch to avoid multiple network calls
       // and overwrites if same PK and SortKey to update timestamp
-      this.docClient.batchWrite(params, function(err) {
+      this.docClient.batchWrite(params, function(err: any) {
         if (err) {
           console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
         } else {
