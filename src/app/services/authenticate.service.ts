@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { SessionStorageService} from 'angular-web-storage';
 import { SpotifyAuthResponse } from "../song-widget/interfaces/spotify-auth-response.interface";
 
-const CLIENT_ID = '5afa66ec3eda4ecbb2e3d82139819866';
+const CLIENT_ID = '5afa66ec3eda4ecbb2e3d82139819866'; // ref for Spotify's api
 const uri = 'https://mhisle22.github.io/spotifysongoftheday/';
 
 const httpHeader = {

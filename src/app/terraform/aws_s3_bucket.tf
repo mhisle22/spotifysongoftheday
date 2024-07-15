@@ -53,7 +53,8 @@ resource "null_resource" "upload_site_to_s3_bucket" {
   depends_on = [ aws_s3_bucket.spotifysongoftheday_deployment_bucket, aws_cloudfront_distribution.s3_distribution ]
 
   provisioner "local-exec" {
-    command = "aws s3 sync ../../../dist/songoftheday/ s3://spotify-song-of-the-day-deployment-bucket"
+    command = ".\\deploy_to_cloudfront.ps1"
+    interpreter = ["PowerShell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File"]
   }
 }
 
