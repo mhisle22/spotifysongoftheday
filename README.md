@@ -1,5 +1,11 @@
-# SongOfTheDay
-Web app to suggest music based on public Spotify API
+# Song Of The Day
+Web app to suggest music based on the public Spotify API's data.
+
+## URL
+
+**CURRENT WEBSITE URL**: https://d14t8tom8cyl2w.cloudfront.net (Cloudfront hosted site)
+
+The old Github Pages url is no longer supported, as that library has unresolved security issues and Cloudfront is significantly more stable.
 
 ## Start your day with a new song recommendation
 
@@ -25,37 +31,40 @@ Below is a list of a few features I plan to implement into this application:
     * Lambda function added to trim user's playlist songs stored in DynamoDB to less than 40
     * Various bug fixes and CSS improvements
 * v1.3.0: Advanced song queries based on built-in variables (danceability, genre, etc.)
-* v1.4.0: Email notifications at a set time each day with Lambda and SNS, with subscribe link in app
-* v1.?: AWS Kinesis Analytics? Or what can data science bring us here?
+* v1.4.0: Email notifications at a set time each day with AWS EventBridge and SNS, with subscribe link in app
 
 ## Software Stack
 
 * Node.js (20.11.1)
 * Angular (17.3.1)
+* Terraform (1.9.2)
 * AWS DynamoDB
+* AWS Lambda
+* AWS Cloudfront and S3, for hosting
 * AWS IAM and CloudWatch for development
 
 All commits are analyzed for security flaws by GitHub Advanced Security.
 
+All of the AWS infrastructure is built via Terraform scripts under the terraform folder. Each new build is hosted on Cloudfront via an invalidation of the previous build. See the `terraform_build.sh` file for more details.
+
 # Getting started
+
+I recommend using yarn for any Node package management, although standard npm is fine.
 
 1. Go to project folder and install dependencies:
  ```bash
- npm install
+ yarn install
  ```
 
 2. Launch development server, and open `localhost:4200` in your browser:
  ```bash
- npm start
+ yarn start
  ```
 
 3. Load in sample data for UI testing on the main page (skips any login pages):
  ```bash
- npm run qa
+ yarn run qa
  ```
 
-4. Deploy the project for Github pages via angular-cli-ghpages
- ```bash
- ng deploy --baseHref="https://mhisle22.github.io/spotifysongoftheday/"
- ```
+4. Public users can no longer redeploy the app themselves- if you have any suggestions, please contact me and I will run the terraform build scripts using my own credentials.
  

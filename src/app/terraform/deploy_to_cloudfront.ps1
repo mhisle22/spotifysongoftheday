@@ -9,6 +9,9 @@ function Debug-Log {
 }
 
 function Sync-S3 {
+    Write-Host "Deleting all existing objects in the S3 bucket..."
+    aws s3 rm s3://spotify-song-of-the-day-deployment-bucket --recursive
+
     Write-Host "Pushing latest code to S3 bucket..."
     aws s3 sync ../../../dist/songoftheday/ s3://spotify-song-of-the-day-deployment-bucket
 }

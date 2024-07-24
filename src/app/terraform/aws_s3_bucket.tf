@@ -23,9 +23,7 @@ resource "aws_s3_bucket_policy" "public_bucket_policy" {
     Statement = [
       {
         Effect = "Allow"
-        Principal = {
-          AWS = aws_cloudfront_origin_access_identity.ui_origin_id_new.iam_arn
-        }
+        Principal = "*"
         Action   = "s3:GetObject"
         Resource = "${aws_s3_bucket.spotifysongoftheday_deployment_bucket.arn}/*"
       }
@@ -97,6 +95,20 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     geo_restriction {
       restriction_type = "none"
     }
+  }
+
+  custom_error_response {
+    error_code = 403
+    response_page_path = "/index.html"
+    response_code = 200
+    error_caching_min_ttl = 300
+  }
+
+  custom_error_response {
+    error_code = 404
+    response_page_path = "/index.html"
+    response_code = 200
+    error_caching_min_ttl = 300
   }
 
   viewer_certificate {

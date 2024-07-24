@@ -2,9 +2,16 @@ function debug() {
     [ "$DEBUG" == "on" ] && "$@"
 }
 
-function sync_s3 {
+BUCKET_NAME="spotify-song-of-the-day-deployment-bucket"
+LOCAL_DIRECTORY="../../../dist/songoftheday/"
+
+# Function to sync the S3 bucket
+sync_s3() {
+    echo "Deleting all existing objects in the S3 bucket..."
+    aws s3 rm s3://$BUCKET_NAME --recursive
+
     echo "Pushing latest code to S3 bucket..."
-    aws s3 sync ../../../dist/songoftheday/ s3://spotify-song-of-the-day-deployment-bucket
+    aws s3 sync $LOCAL_DIRECTORY s3://$BUCKET_NAME
 }
 
 function list_distributions {

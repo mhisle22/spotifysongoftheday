@@ -47,11 +47,11 @@ export class LoginComponent implements OnInit {
     this.sessionStorage.set('verifier', this.codeVerifier());
 
     this.pkce_challenge_from_verifier(this.sessionStorage.get('verifier')).then((challenge) => {
-       this.document.location.href = 'https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID +
-        '&redirect_uri=https:%2F%2Fmhisle22.github.io%2Fspotifysongoftheday%2F&response_type=code&scope=user-top-read,user-read-private,user-read-email,playlist-modify-public,playlist-modify-private' + 
-        '&code_challenge_method=S256&state=123&code_challenge='
-        + challenge;
-    });
+      this.document.location.href = 'https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID +
+       '&redirect_uri=https:%2F%2Fd2fd856v8ttd1y.cloudfront.net%2Fspotifysongoftheday%2F&response_type=code&scope=user-top-read,user-read-private,user-read-email,playlist-modify-public,playlist-modify-private' + 
+       '&code_challenge_method=S256&state=123&code_challenge='
+       + challenge;
+   });
   }
 
   codeVerifier(): string {
@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
 
   back() {
     this.sessionStorage.set('refresh_token', null); // uncommon, but delete token if they deny after previously accepting
-    this.document.location.href = 'https://mhisle22.github.io/spotifysongoftheday/';
+    this.document.location.href = 'https://d2fd856v8ttd1y.cloudfront.net/spotifysongoftheday/';
   }
 
 }

@@ -4,7 +4,7 @@ This Angular-based web app was inspired by my (Mark Hisle) desire to liven up my
 
 <br />
 
-This app has been approved by the Spotify organization itself as safe and in-line with their [current development guidlines](https://developer.spotify.com/policy/). If for whatever reason this app were to breach any of Spotify's privacy policies, it would immediately be taken down by their site.
+This app has been approved by the Spotify organization itself as safe and inline with their [current development guidlines](https://developer.spotify.com/policy/). If for whatever reason this app were to breach any of Spotify's privacy policies, it would immediately be taken down by their site.
 
 Spotify "Song of the Day" temporarily requests an access token from Spotify's secure servers to allow this app to query your top 3 favorite songs and favorite artist. Using this information, it then makes a request back to Spotify to see what songs it would recommend you based on random indices that are similar to those 4 pieces of information.
 

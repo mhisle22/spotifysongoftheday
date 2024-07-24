@@ -171,7 +171,7 @@ export class SongWidgetComponent implements OnInit {
 
   back() {
     this.sessionStorage.set('refresh_token', null); // uncommon, but delete token if they deny after previously accepting
-    this.document.location.href = 'https://mhisle22.github.io/spotifysongoftheday/';
+    this.document.location.href = 'https://d2fd856v8ttd1y.cloudfront.net';
   }
 
   // ----------------------------------------------
