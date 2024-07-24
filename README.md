@@ -3,7 +3,7 @@ Web app to suggest music based on the public Spotify API's data.
 
 ## URL
 
-**CURRENT WEBSITE URL**: https://d14t8tom8cyl2w.cloudfront.net (Cloudfront hosted site)
+**CURRENT WEBSITE URL**: https://d2fd856v8ttd1y.cloudfront.net (Cloudfront hosted site)
 
 The old Github Pages url is no longer supported, as that library has unresolved security issues and Cloudfront is significantly more stable.
 
