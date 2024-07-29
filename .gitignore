@@ -10,6 +10,7 @@
 # dependencies
 /node_modules
 /.angular
+src/app/lambda/venv
 
 # profiling files
 chrome-profiler-events*.json
@@ -30,6 +31,7 @@ chrome-profiler-events*.json
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+.vscode
 
 # misc
 /.sass-cache

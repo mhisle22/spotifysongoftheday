@@ -1,0 +1,40 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Spotify Song of the Day",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/spotifysongoftheday": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "A successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "A successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
