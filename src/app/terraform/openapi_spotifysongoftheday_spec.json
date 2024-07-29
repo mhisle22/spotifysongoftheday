@@ -18,6 +18,13 @@
                 }
               }
             }
+          },
+          "x-amazon-apigateway-integration": {
+            "httpMethod": "GET",
+            "uri": "${apiHandler}",
+            "passthroughBehavior": "when_no_match",
+            "timeoutInMillis": 29000,
+            "type": "aws_proxy"
           }
         },
         "post": {
@@ -32,6 +39,34 @@
                 }
               }
             }
+          },
+          "x-amazon-apigateway-integration": {
+            "httpMethod": "POST",
+            "uri": "${apiHandler}",
+            "passthroughBehavior": "when_no_match",
+            "timeoutInMillis": 29000,
+            "type": "aws_proxy"
+          }
+        },
+        "options": {
+          "responses": {
+            "200": {
+              "description": "A successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "x-amazon-apigateway-integration": {
+            "httpMethod": "OPTIONS",
+            "uri": "${apiHandler}",
+            "passthroughBehavior": "when_no_match",
+            "timeoutInMillis": 29000,
+            "type": "aws_proxy"
           }
         }
       }
