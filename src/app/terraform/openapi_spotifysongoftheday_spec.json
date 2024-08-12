@@ -20,7 +20,7 @@
             }
           },
           "x-amazon-apigateway-integration": {
-            "httpMethod": "GET",
+            "httpMethod": "POST",
             "uri": "${apiHandler}",
             "passthroughBehavior": "when_no_match",
             "timeoutInMillis": 29000,
@@ -62,7 +62,7 @@
             }
           },
           "x-amazon-apigateway-integration": {
-            "httpMethod": "OPTIONS",
+            "httpMethod": "POST",
             "uri": "${apiHandler}",
             "passthroughBehavior": "when_no_match",
             "timeoutInMillis": 29000,
