@@ -29,8 +29,10 @@ class ApiHandler():
             return {
                 'statusCode': 200,
                 'headers': {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': self.get_request_origin(event=event)
+                    'Access-Control-Allow-Origin': self.get_request_origin(event=event),
+                    'Access-Control-Allow-Methods': 'GET,OPTIONS,POST',
+                    'Access-Control-Allow-Headers': 'Content-Type,X-Api-Key,x-api-key',
+                    'Content-Type': 'application/json'
                 },
                 'body': json.dumps({
                     'message': 'Request handled successfully',

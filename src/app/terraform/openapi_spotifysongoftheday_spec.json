@@ -115,23 +115,11 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "type": "mock",
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Origin": "'*'",
-                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,OPTIONS'",
-                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-api-key'"
-              },
-              "responseTemplates": {
-                "application/json": "{}"
-              }
-            }
-          }
+          "httpMethod": "POST",
+          "uri": "${apiHandler}",
+          "passthroughBehavior": "when_no_match",
+          "timeoutInMillis": 29000,
+          "type": "aws_proxy"
         }
       }
     }
