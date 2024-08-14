@@ -34,7 +34,7 @@ export class PlaylistComponent implements OnInit {
     this._authToken = value;
   }
 
-  constructor(private AwsService: AWSService,
+  constructor(private awsService: AWSService,
               private sessionStorage: SessionStorageService,
               private spotifyService: SpotifyRequestService,
               private authService: AuthenticateService) { 
@@ -46,27 +46,32 @@ export class PlaylistComponent implements OnInit {
       setTimeout(() => {
         this.dataSource.sort = this.sort;
       });
-    }
-    else { 
-      this.querySongs(this.sessionStorage.get('id')).then(data => {if (data.Items) {
-        data.Items.forEach((element) => {
-          this.playlistSongs.push({
-            username: atob(String(element.username)),
-            URI: element.URI,
-            artist: element.artist,
-            link: element.link,
-            song: element.song,
-            timestamp: element.suggestTime,
-            position: 0
-          } as UsersPlaylistSong);
-        });
+    } else {
+      this.awsService.query(this.sessionStorage.get('id')).subscribe({
+        next: (data) => {
+          if (data.Items) {
+            data.Items.forEach((element: any) => {
+              this.playlistSongs.push({
+                username: atob(String(element.username)),
+                URI: element.URI,
+                artist: element.artist,
+                link: element.link,
+                song: element.song,
+                timestamp: element.suggestTime,
+                position: 0
+              } as UsersPlaylistSong);
+            });
 
-        this.setSongs(this.playlistSongs);
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-        });
-
-      }}).catch(console.error);
+            this.setSongs(this.playlistSongs);
+            setTimeout(() => {
+              this.dataSource.sort = this.sort;
+            });
+          }
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
     }
   }
 
@@ -103,7 +108,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   querySongs(id: string) {
-    return this.AwsService.query(id);
+    return this.awsService.query(id);
   }
 
   private setAuthTokens(data: any) {

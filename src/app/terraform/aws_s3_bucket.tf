@@ -23,7 +23,9 @@ resource "aws_s3_bucket_policy" "public_bucket_policy" {
     Statement = [
       {
         Effect = "Allow"
-        Principal = "*"
+        Principal = {
+          AWS = aws_cloudfront_origin_access_identity.ui_origin_id_new.iam_arn
+        }
         Action   = "s3:GetObject"
         Resource = "${aws_s3_bucket.spotifysongoftheday_deployment_bucket.arn}/*"
       }

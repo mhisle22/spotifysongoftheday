@@ -1,3 +1,5 @@
+Remove-Item -Path "api_handler_source.zip" -Recurse -Force
+
 # Create a directory for the source code and dependencies
 New-Item -ItemType Directory -Path "api_handler_source"
 

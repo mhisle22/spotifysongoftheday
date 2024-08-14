@@ -3,6 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { SessionStorageService } from 'angular-web-storage';
 import { environment } from '../../environments/environment';
+import { AWSService } from '../services/aws.service';
 
 const CLIENT_ID = '5afa66ec3eda4ecbb2e3d82139819866';
 
@@ -37,7 +38,6 @@ export class LoginComponent implements OnInit {
             return;
           }
           this.accessToken = fragment.code;
-
         }
       });
     }

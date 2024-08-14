@@ -1,4 +1,5 @@
 
+import json
 from aws_connect import AwsConnect
 
 
@@ -12,6 +13,40 @@ class ApiHandler():
         print(event)
         print(context)
 
+        if (event.get('httpMethods') == 'OPTIONS'):
+            return {
+                'statusCode': 200,
+                'headers': {
+                    'Access-Control-Allow-Origin': self.get_request_origin(event=event),
+                    'Access-Control-Allow-Methods': 'GET,OPTIONS,POST',
+                    'Access-Control-Allow-Headers': 'Content-Type,X-Api-Key,x-api-key',
+                    'Content-Type': 'application/json',
+                },
+                'body': None
+            }
+
+        else:
+            return {
+                'statusCode': 200,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': self.get_request_origin(event=event)
+                },
+                'body': json.dumps({
+                    'message': 'Request handled successfully',
+                    'event': event,
+                    'context': str(context)
+                })
+            }
+        
+    def get_request_origin(self, event):
+
+        try:
+            request_origin = event['headers']['origin']
+        except KeyError:
+            request_origin = event['requestContext']['identity']['sourceIp']
+
+        return request_origin
 
 def lambda_handler(event, context):
 
