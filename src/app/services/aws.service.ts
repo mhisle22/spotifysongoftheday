@@ -21,7 +21,7 @@ export class AWSService {
 
     public query(username: string): Observable<any> {
         this.setHeaders(username);
-        return this.httpClient.get<any>(baseUrl, { headers: this.requestHeader }, );
+        return this.httpClient.get<any>(baseUrl, { headers: this.requestHeader });
     }
 
     public insertSongs(songs: SpotifySongResponse[], id: string, limit: number): Observable<any> {

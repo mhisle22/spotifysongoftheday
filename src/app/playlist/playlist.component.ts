@@ -48,9 +48,9 @@ export class PlaylistComponent implements OnInit {
       });
     } else {
       this.awsService.query(this.sessionStorage.get('id')).subscribe({
-        next: (data) => {
-          if (data.Items) {
-            data.Items.forEach((element: any) => {
+        next: (response) => {
+          if (response.data && response.data.Items) {
+            response.data.Items.forEach((element: any) => {
               this.playlistSongs.push({
                 username: atob(String(element.username)),
                 URI: element.URI,
