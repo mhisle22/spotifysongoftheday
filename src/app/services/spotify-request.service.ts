@@ -59,7 +59,8 @@ export class SpotifyRequestService {
     const url =
       'https://api.spotify.com/v1/recommendations?limit=' + limitSongs +
       '&market=US&seed_artists=' + favoriteArtists + 
-      '&seed_genres=*&seed_tracks=' + favoriteTracks;
+      '&seed_genres=*&seed_tracks=' + favoriteTracks +
+      '&min_popularity=50&max_popularity=80';
 
     const curlHeader = {
       headers: new HttpHeaders({
