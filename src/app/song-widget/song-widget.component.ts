@@ -27,10 +27,10 @@ const limitSongs: number = 5; // 0 < limitsSongs < 25, since DynamoDB can only a
       })),
 
       transition('in => out', [
-        animate('1s'),
+        animate('0.5s'),
       ]),
       transition('out => in', [
-        animate('1s 0.5s'),
+        animate('0.5s 0.5s'),
       ])
     ])
   ]

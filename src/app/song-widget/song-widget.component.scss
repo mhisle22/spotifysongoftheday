@@ -144,12 +144,12 @@ body {
   //animation code below
   position: relative;
   opacity: 0;
-  -webkit-animation: pulse-in 1s forwards;
-  -moz-animation: pulse-in 1s forwards;
-  animation: pulse-in 1s forwards;
-  -webkit-animation-delay: 1.75s;
-  -moz-animation-delay: 1.75s;
-  animation-delay: 1.75s;
+  -webkit-animation: pulse-in 0.5s forwards;
+  -moz-animation: pulse-in 0.5s forwards;
+  animation: pulse-in 0.5s forwards;
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  animation-delay: 2s;
 
   @-webkit-keyframes pulse-in {
     0% {

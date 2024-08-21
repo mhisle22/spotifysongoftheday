@@ -11,8 +11,6 @@ The old Github Pages url is no longer supported, as that library has unresolved 
 
 This Angular-based web app was inspired by my (Mark Hisle) desire to liven up my daily commute with a fresh new song recommended by Spotify's publicly available API. [This API](https://developer.spotify.com/documentation/web-api/) is a free-to-use data source that constantly updates itself based upon your past music consumption on the app, as well as Spotify's algorithms designed to determine which songs they believe best match your current styles and preferences.
 
-NOTE: the playlist feature is currently turned off, because of the costs associated with the API Gateway/Lambda it will need for DynamoDB requests.
-
 **Disclaimer:** I have no affiliation with the Spotify company itself, nor have any control over your data- everything this app shows you is the extent of what I can see
 
 ## Feature Schedule

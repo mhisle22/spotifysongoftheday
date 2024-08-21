@@ -1,6 +1,6 @@
 <div class="playlist-container">
   <div class="title">Your previous songs of the day:</div>
-  <mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData()" class="mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData()" class="mat-elevation-z8 mat-table">
     <!-- Number Column -->
     <ng-container matColumnDef="position">
       <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>

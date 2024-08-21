@@ -52,12 +52,12 @@ export class PlaylistComponent implements OnInit {
           if (response.data && response.data.Items) {
             response.data.Items.forEach((element: any) => {
               this.playlistSongs.push({
-                username: atob(String(element.username)),
-                URI: element.URI,
-                artist: element.artist,
-                link: element.link,
-                song: element.song,
-                timestamp: element.suggestTime,
+                username: atob(String(element.username.S)),
+                URI: element.URI.S,
+                artist: element.artist.S,
+                link: element.link.S,
+                song: element.song.S,
+                timestamp: element.suggestTime.S,
                 position: 0
               } as UsersPlaylistSong);
             });

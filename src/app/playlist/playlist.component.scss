@@ -151,6 +151,11 @@
   }
 }
 
+::ng-deep .mat-mdc-table {
+  min-width: unset !important;
+}
+
+
 .playlist-button {
   margin-top: -1vh;
   span {
