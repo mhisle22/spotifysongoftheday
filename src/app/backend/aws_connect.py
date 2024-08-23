@@ -28,6 +28,8 @@ class AwsConnect(object):
         self.lambda_client = self.boto_session.client('lambda', config=self.boto_config)
         self.dynamodb_client = self.boto_session.client('dynamodb', config=self.boto_config)
 
+        self.table_name = TABLE
+
     def get_boto3_session(self):
 
         try:
@@ -79,22 +81,49 @@ class AwsConnect(object):
         
         return response
     
+
     def post_songs_to_playlist(self, songs, id, limit):
         time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        
-        items_array = []
+        max_items = 25
 
-        # Add songs up to the limit (max 25)
+        encoded_username = base64.b64encode(id.encode('utf-8')).decode('utf-8')
+
+        # Query existing items for the given username
+        response = self.dynamodb_client.query(
+            TableName=self.table_name,
+            KeyConditionExpression='username = :username',
+            ExpressionAttributeValues={':username': {'S': encoded_username}},
+            ProjectionExpression='username, URI, suggestTime'
+        )
+
+        items = response.get('Items', [])
+
+        # Sort items by suggestTime and remove the oldest if over the limit
+        if len(items) + min(limit, 25) > max_items:
+            items.sort(key=lambda x: x['suggestTime']['S'])
+            items_to_delete = items[:len(items) + min(limit, 25) - max_items]
+
+            for item in items_to_delete:
+                self.dynamodb_client.delete_item(
+                    TableName=self.table_name,
+                    Key={
+                        'username': item['username'],
+                        'URI': item['URI']
+                    }
+                )
+
+        # Prepare the new songs to add (up to 25)
+        items_array = []
         for i in range(min(limit, 25)):
             item = {
                 'PutRequest': {
                     'Item': {
-                        'username': {'S': base64.b64encode(id.encode('utf-8')).decode('utf-8')}, # PK
-                        'URI': {'S': songs[i]['uri']}, # SortKey
+                        'username': {'S': encoded_username},  # PK
+                        'URI': {'S': songs[i]['uri']},  # SortKey
                         'artist': {'S': songs[i]['artist']},
                         'link': {'S': songs[i]['spotify_link']},
                         'song': {'S': songs[i]['song']},
-                        'suggestTime': {'S': time} # to be used w/ playlist trimming later
+                        'suggestTime': {'S': time}  # For sorting and trimming
                     }
                 }
             }
@@ -102,11 +131,10 @@ class AwsConnect(object):
 
         params = {
             'RequestItems': {
-                TABLE: items_array
+                self.table_name: items_array
             }
         }
 
-        # Perform the batch write
         try:
             response = self.dynamodb_client.batch_write_item(RequestItems=params['RequestItems'])
             return response

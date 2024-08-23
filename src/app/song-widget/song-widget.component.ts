@@ -42,6 +42,8 @@ export class SongWidgetComponent implements OnInit {
   songs: SpotifySongResponse[];
   position: number = 0;
 
+  filteringSongs: string[];
+
   spotify_link: string;
   image_link: string;
   song: string;
@@ -103,7 +105,7 @@ export class SongWidgetComponent implements OnInit {
       tap(profile =>
           this.setID(profile)),  
       switchMap(() =>
-        this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists, limitSongs)),
+        this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists, limitSongs, this.filteringSongs)),
       tap(value => {
         this.setSongData(value, this.position);
         this.storeSongs(value, this.id);
@@ -126,7 +128,7 @@ export class SongWidgetComponent implements OnInit {
       tap(profile =>
           this.setID(profile)),
       switchMap(() =>
-        this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists, limitSongs)),
+        this.spotifyService.getSongRecommendations(this.authToken, this.favoriteSongs, this.favoriteArtists, limitSongs, this.filteringSongs)),
       tap(value => {
         this.setSongData(value, this.position);
         this.storeSongs(value, this.id);
@@ -142,8 +144,8 @@ export class SongWidgetComponent implements OnInit {
 
   // once I make this modular, take in a number for this (v1.3)
   private setFavoriteSongs(response: any) {
-    this.favoriteSongs =
-      response.items[0].id + '%2C' + response.items[1].id + '%2C' + response.items[2].id;
+    this.favoriteSongs = response.items[0].id + '%2C' + response.items[1].id + '%2C' + response.items[2].id;
+    this.filteringSongs = response.items.map((song: any) => {return song.id});
   }
 
   // once I make this modular, take in a number for this (v1.3)
