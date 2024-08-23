@@ -9,7 +9,7 @@ The old Github Pages url is no longer supported, as that library has unresolved 
 
 ## Start your day with a new song recommendation
 
-This Angular-based web app was inspired by my (Mark Hisle) desire to liven up my daily commute with a fresh new song recommended by Spotify's publicly available API. [This API](https://developer.spotify.com/documentation/web-api/) is a free-to-use data source that constantly updates itself based upon your past music consumption on the app, as well as Spotify's algorithms designed to determine which songs they believe best match your current styles and preferences.
+This Angular-based web app was inspired by my desire to liven up my daily commute with a fresh new song recommended by Spotify's publicly available API. [This API](https://developer.spotify.com/documentation/web-api/) is a free-to-use data source that constantly updates itself based upon your past music consumption on the app, as well as Spotify's algorithms designed to determine which songs they believe best match your current styles and preferences.
 
 **Disclaimer:** I have no affiliation with the Spotify company itself, nor have any control over your data- everything this app shows you is the extent of what I can see
 
@@ -26,10 +26,13 @@ Below is a list of a few features I plan to implement into this application:
 * v1.2.0: Historical suggestion data tracking and playlist creation via AWS DynamoDB and AWS Lambda :ballot_box_with_check:
     * New playlist page retrieving data from SpotifySongsOfTheDay table
     * Option to add a playlist to your spotify accounts
-    * Lambda function added to trim user's playlist songs stored in DynamoDB to less than 40
+    * API Gateway fronting requests from the FE to Lambda
+    * Automatic cleanup of playlists over time
     * Various bug fixes and CSS improvements
 * v1.3.0: Advanced song queries based on built-in variables (danceability, genre, etc.)
 * v1.4.0: Email notifications at a set time each day with AWS EventBridge and SNS, with subscribe link in app
+
+Eventually I will buy a real domain for the site and set it up in Route 53 and all that, but for now I'm using the free Cloudwatch one.
 
 ## Software Stack
 
