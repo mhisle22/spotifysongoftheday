@@ -5,15 +5,19 @@ import { SessionStorageService } from 'angular-web-storage';
 import { SpotifyRequestService } from '../services/spotify-request.service';
 import { AuthenticateService } from '../services/authenticate.service';
 import { SpotifySongResponse } from './interfaces/spotify-song-response.interface';
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, NgClass } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { AWSService } from '../services/aws.service';
 import { Router } from '@angular/router';
+import { CdkTableModule } from '@angular/cdk/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 
 const limitSongs: number = 5; // 0 < limitsSongs < 25, since DynamoDB can only add 25 at once
 
 @Component({
   selector: 'ng-song-widget',
+  standalone: true,
   templateUrl: './song-widget.component.html',
   styleUrls: ['./song-widget.component.scss'],
   animations: [
@@ -33,7 +37,8 @@ const limitSongs: number = 5; // 0 < limitsSongs < 25, since DynamoDB can only a
         animate('0.5s 0.5s'),
       ])
     ])
-  ]
+  ],
+  imports: [MatTableModule, MatSortModule, CdkTableModule, CommonModule]
 })
 export class SongWidgetComponent implements OnInit {
 

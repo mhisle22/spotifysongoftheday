@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @use '@angular/material' as mat;
+// 3rd party libraries
+@use "./node_modules/bootstrap/scss/bootstrap";
+@use "./node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@use "./node_modules/@fortawesome/fontawesome-free/scss/brands.scss";
+@use "./node_modules/@fortawesome/fontawesome-free/scss/regular.scss";
+@use "./node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
 
 @include mat.core();
 
@@ -13,10 +19,3 @@ $my-theme: mat.define-theme((
 html {
   @include mat.all-component-themes($my-theme);
 }
-// 3rd party libraries
-@import "./node_modules/bootstrap/scss/bootstrap";
-@import "./node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "./node_modules/@fortawesome/fontawesome-free/scss/brands.scss";
-@import "./node_modules/@fortawesome/fontawesome-free/scss/regular.scss";
-@import "./node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
-

@@ -1,16 +1,19 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { SessionStorageService } from 'angular-web-storage';
 import { environment } from '../../environments/environment';
-import { AWSService } from '../services/aws.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SongWidgetComponent } from '../song-widget/song-widget.component';
 
 const CLIENT_ID = '5afa66ec3eda4ecbb2e3d82139819866';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  imports: [NgbModule, SongWidgetComponent, CommonModule],
 })
 export class LoginComponent implements OnInit {
   version: string = environment.version;

@@ -2,18 +2,22 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AWSService } from '../services/aws.service';
 import { UsersPlaylistSong } from '../song-widget/interfaces/users-playlist-song.interface';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { SessionStorageService } from 'angular-web-storage';
 import { SpotifyRequestService } from '../services/spotify-request.service';
 import { AuthenticateService } from '../services/authenticate.service';
 import { catchError, switchMap, tap } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
+import { CdkTableModule } from '@angular/cdk/table';
 
 
 @Component({
   selector: 'playlist',
+  standalone: true,
   templateUrl: './playlist.component.html',
   styleUrls: ['./playlist.component.scss'],
+  imports: [MatTableModule, MatSortModule, CdkTableModule, CommonModule],
 })
 export class PlaylistComponent implements OnInit {
 

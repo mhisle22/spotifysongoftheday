@@ -1,4 +1,4 @@
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@use '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 .playlist-container {
   position: absolute;
@@ -15,13 +15,6 @@
   margin-top: 3vh;
   color: white;
   font-size: 3vw;
-  @media (max-width: 768px) {
-    margin-top: 2vh;
-    font-size: 2rem;
-  }
-  @media (max-height: 600px) {
-    font-size: 1.5rem;; //for extra small screens
-  }
   text-align: center;
 
   //animation code below
@@ -33,6 +26,14 @@
   -webkit-animation-delay: .25s;
   -moz-animation-delay: .25s;
   animation-delay: .25s;
+
+  @media (max-width: 768px) {
+    margin-top: 2vh;
+    font-size: 2rem;
+  }
+  @media (max-height: 600px) {
+    font-size: 1.5rem;; //for extra small screens
+  }
 
   @-webkit-keyframes slideUp {
     0% {
@@ -72,15 +73,9 @@
 
 .mat-table {
   width: 70%;
-  @media (max-width: 768px) {
-    width: 90%;
-  }
   margin: 3vh auto;
   border-radius: 10px;
   max-height: 70%;
-  @media (max-width: 768px) {
-    max-height: 60%;
-  }
   overflow-y: scroll;
 
   //animation code below
@@ -93,6 +88,13 @@
   -moz-animation-delay: .75s;
   animation-delay: .75s;
 
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+
+  @media (max-width: 768px) {
+    max-height: 60%;
+  }
 
   .mat-header-row {
     border-radius: 10px;

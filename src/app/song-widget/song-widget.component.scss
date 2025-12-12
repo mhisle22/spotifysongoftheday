@@ -19,13 +19,6 @@ body {
   margin-top: 2.5vh;
   color: white;
   font-size: 3vw;
-  @media (max-width: 768px) {
-    margin-top: 2vh;
-    font-size: 2rem;
-  }
-  @media (max-height: 600px) {
-    font-size: 1.5rem;; //for extra small screens
-  }
 
   text-align: center;
 
@@ -38,6 +31,14 @@ body {
   -webkit-animation-delay: .25s;
   -moz-animation-delay: .25s;
   animation-delay: .25s;
+
+  @media (max-width: 768px) {
+    margin-top: 2vh;
+    font-size: 2rem;
+  }
+  @media (max-height: 600px) {
+    font-size: 1.5rem;; //for extra small screens
+  }
 
   @-webkit-keyframes slideUp {
     0% {
@@ -75,11 +76,11 @@ body {
   border-radius: 2px;
   width: 350px;
   height: 350px;
+  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;
   @media (max-width: 768px) {
     width: calc(100%);
     height: calc(100%);
   }
-  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;
 }
 
 .song-title {
@@ -110,20 +111,28 @@ body {
   padding: 20px;
   text-align: center;
   color: white;
-  @media (max-width: 768px) {
-    width: calc(100% - 40px);
-  }
+
+  //animation code below
+  position: relative;
+  opacity: 0;
+  -webkit-animation: pulse-in 0.5s forwards;
+  -moz-animation: pulse-in 0.5s forwards;
+  animation: pulse-in 0.5s forwards;
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  animation-delay: 2s;
+  
   .features {
     ul {
       color: black;
       padding: 0;
       margin: 15px 0 30px 0;
-      @media (max-width: 450px) {
-        margin: 15px 0 20px 0; //for small screens
-      }
       list-style-type: none;
       li {
         margin: 10px 0;
+      }
+      @media (max-width: 450px) {
+        margin: 15px 0 20px 0; //for small screens
       }
     }
   }
@@ -141,15 +150,11 @@ body {
     }
   }
 
-  //animation code below
-  position: relative;
-  opacity: 0;
-  -webkit-animation: pulse-in 0.5s forwards;
-  -moz-animation: pulse-in 0.5s forwards;
-  animation: pulse-in 0.5s forwards;
-  -webkit-animation-delay: 2s;
-  -moz-animation-delay: 2s;
-  animation-delay: 2s;
+  
+
+  @media (max-width: 768px) {
+    width: calc(100% - 40px);
+  }
 
   @-webkit-keyframes pulse-in {
     0% {
@@ -206,12 +211,6 @@ body {
   font-size: 2rem;
   cursor: pointer;
   margin-top: 10vh;
-  @media (max-width: 450px) {
-    margin-top: 1.5vh; //for small screens
-  }
-  @media (min-width: 1700px) {
-    margin-top: 3vh;
-  }
 
   display: inline-block;
 
@@ -219,6 +218,13 @@ body {
   -webkit-animation: pulse 2s infinite;
   -moz-animation: pulse 2s infinite;
   animation: pulse 2s infinite;
+
+  @media (max-width: 450px) {
+    margin-top: 1.5vh; //for small screens
+  }
+  @media (min-width: 1700px) {
+    margin-top: 3vh;
+  }
 
   @-webkit-keyframes pulse {
     0% {
@@ -273,14 +279,15 @@ body {
 
 .playlist-button {
   margin-top: -2vh;
+  span {
+    font-weight: 500;
+    line-height: 2.5;
+  }
+
   @media (max-width: 768px) {
     margin-top: -4vh;
   }
   @media (max-width: 1700px) {
     margin-top: -3.5vh; //for laptops
-  }
-  span {
-    font-weight: 500;
-    line-height: 2.5;
   }
 }

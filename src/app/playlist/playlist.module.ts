@@ -4,8 +4,11 @@ import { AWSService } from '../services/aws.service';
 import { PlaylistComponent } from './playlist.component';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [PlaylistComponent],
+  imports: [
+    CommonModule,
+    PlaylistComponent
+  ],
+  declarations: [],
   providers: [AWSService]
 })
 export class PlaylistModule {}
