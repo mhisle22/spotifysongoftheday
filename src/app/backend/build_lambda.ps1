@@ -11,7 +11,7 @@ Copy-Item -Path "aws_connect.py" -Destination "api_handler_source"
 New-Item -ItemType Directory -Path "api_handler_source\package"
 
 # Copy the dependencies from the virtual environment's site-packages to the new package directory
-Copy-Item -Path "venv\Lib\site-packages\*" -Destination "api_handler_source\package" -Recurse
+Copy-Item -Path ".venv\Lib\site-packages\*" -Destination "api_handler_source\package" -Recurse
 
 # Navigate to the new directory
 Set-Location -Path "api_handler_source"

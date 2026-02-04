@@ -25,16 +25,16 @@
     "@fortawesome/fontawesome-free": "~5.15.3",
     "@ng-bootstrap/ng-bootstrap": "19.0.0",
     "@popperjs/core": "2.11.8",
-    "ajv": "6.12.6",
+    "ajv": "8.17.1",
     "angular-web-storage": "~17.0.0",
     "aws-sdk": "2.1693.0",
     "bootstrap": "5.3.8",
     "jquery": "3.7.1",
     "rxjs": "~7.8.2",
     "tslib": "~2.6.2",
-    "util": "^0.12.4",
+    "util": "^0.12.5",
     "zone.js": "~0.14.4",
-    "sass-loader": "14.1.1"
+    "sass-loader": "16.0.6"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "20.3.13",
